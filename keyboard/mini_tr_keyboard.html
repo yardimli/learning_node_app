@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Basic Page Needs
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<meta charset="utf-8">
+	<title>TalkingKeyboard</title>
+
+	<!-- Mobile Specific Metas
+	–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- FONT
+	–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<link href='//fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
+	<!-- CSS
+	–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<link rel="stylesheet" href="../css/normalize.css">
+	<link rel="stylesheet" href="../css/skeleton.css">
+	<link rel="stylesheet" href="../css/custom_tr.css">
+
+	<!-- Scripts
+	–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+	<script src="../js/jquery.min.js"></script>
+
+</head>
+<script language="JavaScript">
+	document.oncontextmenu =new Function("return false;")
+</script>
+<body onselectstart="return false">
+
+<div class="container">
+	<!-- '&nbsp' is used as a placeholder to maintain the header's non-empty position. -->
+	<!--    <section class="header">-->
+	<!--        <h2 class="title" id="selectedLetter">&nbsp;</h2>-->
+	<!--    </section>-->
+
+	<!--     <div style="text-align:center; margin-bottom: 5px;">
+			Instructions: Type or click on an alphanumeric key to hear it.</div>
+	 -->
+	<div class="keyboard" id="TR_KEY">
+		<hr>
+
+		<div class="row">
+			<div class="twelve columns">
+				<button class="keyboard-key" id="key-1" data-mp3="/audio/letters/tr/Default_1.wav">1</button>
+				<button class="keyboard-key" id="key-2" data-mp3="/audio/letters/tr/iki.mp3">2</button>
+				<button class="keyboard-key" id="key-3" data-mp3="/audio/letters/tr/Default_3.wav">3</button>
+				<button class="keyboard-key" id="key-4" data-mp3="/audio/letters/tr/Default_4.wav">4</button>
+				<button class="keyboard-key" id="key-5" data-mp3="/audio/letters/tr/Default_5.wav">5</button>
+				<button class="keyboard-key" id="key-6" data-mp3="/audio/letters/tr/Default_6.wav">6</button>
+				<button class="keyboard-key" id="key-7" data-mp3="/audio/letters/tr/Default_7.wav">7</button>
+				<button class="keyboard-key" id="key-8" data-mp3="/audio/letters/tr/Default_8.wav">8</button>
+				<button class="keyboard-key" id="key-9" data-mp3="/audio/letters/tr/Default_9.wav">9</button>
+				<button class="keyboard-key" id="key-0" data-mp3="/audio/letters/tr/Default_0.wav">0</button>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="twelve columns">
+				<button class="keyboard-key" id="key-Q" data-mp3="/audio/letters/tr/Default_q.wav">Q</button>
+				<button class="keyboard-key" id="key-W" data-mp3="/audio/letters/tr/Default_w.wav">W</button>
+				<button class="keyboard-key" id="key-E" data-mp3="/audio/letters/tr/Default_e.wav">E</button>
+				<button class="keyboard-key" id="key-R" data-mp3="/audio/letters/tr/Default_r.wav">R</button>
+				<button class="keyboard-key" id="key-T" data-mp3="/audio/letters/tr/Default_t.wav">T</button>
+				<button class="keyboard-key" id="key-Y" data-mp3="/audio/letters/tr/Default_y.wav">Y</button>
+				<button class="keyboard-key" id="key-U" data-mp3="/audio/letters/tr/Default_u.wav">U</button>
+				<button class="keyboard-key" id="key-I" data-mp3="/audio/letters/tr/Default_ii.wav">I</button>
+				<button class="keyboard-key" id="key-O" data-mp3="/audio/letters/tr/Default_o.wav">O</button>
+				<button class="keyboard-key" id="key-P" data-mp3="/audio/letters/tr/Default_p.wav">P</button>
+				<button class="keyboard-key" id="key-P2" data-mp3="/audio/letters/tr/Default_gg.wav">Ğ</button>
+				<button class="keyboard-key" id="key-P3" data-mp3="/audio/letters/tr/Default_uu.wav">Ü</button>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="twelve columns">
+				<button class="keyboard-key" id="key-A" data-mp3="/audio/letters/tr/Default_a.wav">A</button>
+				<button class="keyboard-key" id="key-S" data-mp3="/audio/letters/tr/Default_s.wav">S</button>
+				<button class="keyboard-key" id="key-D" data-mp3="/audio/letters/tr/Default_d.wav">D</button>
+				<button class="keyboard-key" id="key-F" data-mp3="/audio/letters/tr/Default_f.wav">F</button>
+				<button class="keyboard-key" id="key-G" data-mp3="/audio/letters/tr/Default_g.wav">G</button>
+				<button class="keyboard-key" id="key-H" data-mp3="/audio/letters/tr/Default_h.wav">H</button>
+				<button class="keyboard-key" id="key-J" data-mp3="/audio/letters/tr/Default_j.wav">J</button>
+				<button class="keyboard-key" id="key-K" data-mp3="/audio/letters/tr/Default_k.wav">K</button>
+				<button class="keyboard-key" id="key-L" data-mp3="/audio/letters/tr/Default_l.wav">L</button>
+				<button class="keyboard-key" id="key-L2" data-mp3="/audio/letters/tr/Default_ss.wav">Ş</button>
+				<button class="keyboard-key" id="key-L3" data-mp3="/audio/letters/tr/Default_i.wav">İ</button>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="twelve columns">
+				<button class="keyboard-key" id="key-Z" data-mp3="/audio/letters/tr/Default_z.wav">Z</button>
+				<button class="keyboard-key" id="key-X" data-mp3="/audio/letters/tr/Default_x.wav">X</button>
+				<button class="keyboard-key" id="key-C" data-mp3="/audio/letters/tr/Default_c.wav">C</button>
+				<button class="keyboard-key" id="key-V" data-mp3="/audio/letters/tr/Default_v.wav">V</button>
+				<button class="keyboard-key" id="key-B" data-mp3="/audio/letters/tr/Default_b.wav">B</button>
+				<button class="keyboard-key" id="key-N" data-mp3="/audio/letters/tr/Default_n.wav">N</button>
+				<button class="keyboard-key" id="key-M" data-mp3="/audio/letters/tr/Default_m.wav">M</button>
+				<button class="keyboard-key" id="key-M2" data-mp3="/audio/letters/tr/Default_oo.wav">Ö</button>
+				<button class="keyboard-key" id="key-M3" data-mp3="/audio/letters/tr/Default_cc.wav">Ç</button>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="twelve columns">
+				<button class="keyboard-key" style="width:55%; min-height: 64px; border-width: 2px;" id="key-space" data-mp3="/audio/letters/tr/Default_space.wav">_</button>
+			</div>
+		</div>
+
+	</div>
+
+
+	<br/>
+	<br/>
+
+</div>
+
+<audio preload="none" id="media_audio">
+	<source id="media_audio_source" src="" type="audio/mpeg">
+</audio>
+
+<script src="talking_keyboard.js"></script>
+</body>
+</html>
