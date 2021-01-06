@@ -714,9 +714,9 @@
     "name": "English Keyboard",
     "description": "Turkish keyboard fun",
     "picture": "/lesson_pictures/keyboard.png",
-    "screen_path": "../keyboard_fun_tr/index.html?",
+    "screen_path": "../keyboard_fun_en/index.html?",
     "keyboard_path": "../keyboard/index.html?",
-    "mini_keyboard_path": "../keyboard/mini_tr_keyboard.html?",
+    "mini_keyboard_path": "../keyboard/mini_en_keyboard.html?",
     "need_keyboard" : "yes"
   }
 ]
