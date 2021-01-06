@@ -8,15 +8,13 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Alphabet Letter Lesson</title>
+  <title>Type Word</title>
 
   <!-- Bootstrap core CSS -->
   <link href="../css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Custom styles for this template -->
-  <link href="../css/alfabe.css" rel="stylesheet">
-
   <link href="../css/balloons.css" rel="stylesheet">
+  <link href="../css/type-words.css" rel="stylesheet">
 
   <style>
     @font-face {
@@ -28,13 +26,14 @@
 </head>
 
 <body>
+
 <div style="position:fixed; top:0px;  width:100%; overflow:hidden; white-space: nowrap; height:15px; z-index: 10; display: flex; background-color: white;"
      id="progress_box">
   <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_box" style="width:0%"></div>
 </div>
 
 <link href='https://fonts.googleapis.com/css?family=Wendy+One' rel='stylesheet' type='text/css'>
-<div style="position:fixed; bottom:0px;  width:100%; overflow:hidden; white-space: nowrap; height:250px; z-index: 22; display: flex;" id="ballons">
+<div style="position:fixed; bottom:0px;  width:100%; overflow:hidden; white-space: nowrap; height:250px; z-index: 10; display: flex;" id="ballons">
   <div class="balloons_container">
     <div class="balloon">
       <div><span>B</span></div>
@@ -47,31 +46,34 @@
   </div>
 </div>
 
-<div id="lesson_view"
-     style="margin:0 auto; margin-top:7vh; width:98vw; background-color: white; text-align: left; position: relative; border: 5px solid black; height: 88vh; position:relative; overflow: hidden">
-  <img src="" id="word_image" style="max-height:100%; z-index:10; position: absolute; right:0px; top:0px;">
-
-  <video autoplay="autoplay" muted="muted" id="media_video" style="position:absolute; left:-50px; top:0px; height:100%; z-index: 8;">
-    <source id="media_video_source" src="" type="video/mp4">
-  </video>
-
-  <div id="word_letter" class="animate-flicker" style="position: absolute; top:10px; right:50px; z-index: 11;"></div>
-  <div id="word_spelling" style="position: absolute; bottom:-40px; right:150px; z-index: 11;"></div>
+<div style="position: fixed; top:10px; left:10px; width:95%; height: 95%; overflow: auto; z-index: 999; background-color: white;" ID="picture_box">
 </div>
+
+<div style="position: fixed; top:30px; left:30px; width:90%; height: 200px; overflow: auto; display: none; text-align: center;" ID="word_picture_box">
+  <img src="" id="word_picture" style="height: 100%;">
+</div>
+
+<div id="WordsForLesson" class="writer"
+     style="position: fixed; bottom:0px; left:0px; font-size: 64px; color:white; background-color: rgba(0,0,0,0.5); right:0px; min-height:30px; padding:5px;"></div>
+<div id="animation_view"></div>
+<div id="BeginLesson"
+     style="position: fixed; right:10px; bottom:10px;  background-color: rgb(255,128,0); color:white; border: 1px solid white; font-size: 20px; padding: 10px; border-radius: 5px; cursor: pointer; z-index: 999;">
+  BEGIN LESSON
+</div>
+<div id="animation_view"></div>
 
 <audio preload="none" id="media_audio">
   <source id="media_audio_source" src="" type="audio/mpeg">
 </audio>
+
 <audio preload="none" id="media_audio2">
   <source id="media_audio2_source" src="" type="audio/mpeg">
 </audio>
-
 
 </body>
 
 <script src="../js/jquery.min.js"></script>
 <script src="../js/bootstrap.bundle.min.js"></script>
-<script src="../js/anime.min.js"></script>
-<script src="alfabe_seviye_2.js"></script>
+<script src="type-word.js"></script>
 
 </html>

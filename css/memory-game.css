@@ -1,0 +1,87 @@
+html, body {
+  overflow: hidden;
+}
+
+/* Prevent text selection of a <body> element in all major browsers */
+body {
+  -youbkit-touch-callout: none; /* iOS Safari */
+  -youbkit-user-select: none;   /* Chrome 6.0+, Safari 3.1+, Edge & Opera 15+ */
+  -moz-user-select: none;       /* Firefox */
+  -ms-user-select: none;        /* IE 10+ and Edge */
+  user-select: none;            /* Non-prefixed version, currently supported by Chrome and Opera */
+
+  background: #060AB2;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.memory-game {
+  width: 70vw;
+  margin: auto;
+}
+
+.LowOpacity {
+  opacity: 0;
+}
+
+.memory-card {
+  height: 130px;
+  /*margin: 5px;*/
+  /*position: relative;*/
+  padding: 0px;
+  margin-bottom: 10px;
+
+  transform: scale(1);
+  transform-style: preserve-3d;
+  transition: transform .5s;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, .3);
+  display: inline-block;
+}
+
+.memory-card:active {
+  transform: scale(0.97);
+  transition: transform .2s;
+}
+
+.memory-card.flip {
+  transform: rotateY(180deg);
+}
+
+.front-face,
+.back-face {
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  /*margin: 15px;*/
+  position: absolute;
+  border-radius: 5px;
+  background: #1C7CCC;
+  backface-visibility: hidden;
+}
+
+.front-face {
+  transform: rotateY(180deg);
+}
+
+
+.word_card {
+
+  display: inline-block;
+  margin: 10px;
+  padding: 20px;
+  background-color: white;
+  color: black;
+  font-size: 40px;
+  border: 1px solid black;
+  border-radius: 4px;
+  min-width: 100px;
+}
+
+.word_card-active{
+  background-color: blue;
+  color:white;
+}

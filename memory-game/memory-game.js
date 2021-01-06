@@ -5,11 +5,8 @@ let disableUnlockBoard = false;
 
 var LessonRowCount = 0;
 var LessonProgress = 0;
+var LessonLength = 0;
 var CardsOpen = true;
-var BuildLessonCorrectKey;
-var CurrentWordCardArrayPos = 0;
-
-var LowerCaseCard = true;
 
 let ScreenLessonType = 1;
 
@@ -40,6 +37,7 @@ var LessonLength = parseInt(getParameterByName("word_count"), 10);
 var LessonLanguage = getParameterByName("language");
 var LessonCategory = getParameterByName("category");
 
+
 function getRandomColor() {
   var letters = '0123456789ABCDEF';
   var color = '#';
@@ -48,19 +46,6 @@ function getRandomColor() {
   }
   return color;
 }
-
-function capitalize(s) {
-  if (typeof s !== 'string') return '';
-  s = s.toLocaleLowerCase('tr-TR');
-
-  if (Math.random() * 100 > 65) {
-    return s.charAt(0).toLocaleUpperCase('tr-TR') + s.slice(1);
-  }
-  else {
-    return s;
-  }
-}
-
 
 function flipCard(xCard) {
   if (lockBoard) return;
@@ -125,7 +110,6 @@ function disableCards() {
     if (AllCardsOpen) {
       LessonRowCount++;
       GuessPictureCount = 0;
-      LowerCaseCard = (Math.random() * 100 > 30);
       CreateWordBoard();
     }
   }, 3000);
@@ -222,7 +206,6 @@ function CreateMemoryLessonBoard(RowCount) {
   var CardID = 0;
   var HtmlString = "";
   var LessonLetters = "ELKAİNOMUTÜYÖRIDSBZÇGŞCPHVFJ";
-  LessonLetters = LessonLetters.toLocaleLowerCase('tr-TR');
 
   var WordList = "";
 
@@ -230,50 +213,65 @@ function CreateMemoryLessonBoard(RowCount) {
 
     var CardAdded = false;
     while (!CardAdded) {
-
-      var RandomLetterPos = Math.floor(Math.random() * LessonLetters.length);
-      BuildLessonCorrectKey = LessonLetters[RandomLetterPos];
-
       for (var ii = 0; ii < AlfaWords.length; ii++) {
-        var WordX = AlfaWords[ii].word.toLocaleUpperCase('tr-TR');
-        if (LowerCaseCard) {
-          WordX = capitalize(AlfaWords[ii].word);
-        }
-
-        if (WordX.charAt(0) === BuildLessonCorrectKey && (Math.random() * 100 > 95) && (WordList.indexOf(WordX) === -1)) {
-          WordList += WordX + ",";
-          console.log(WordX);
+        if ((Math.random() * 100 > 95) && (WordList.indexOf(AlfaWords[ii].word) === -1)) {
+          WordList += AlfaWords[ii].word + ",";
+          console.log(AlfaWords[ii].word);
           RandomLetterPos = ii;
+          console.log(AlfaWords[ii].image);
 
-          WordAudio = "/audio/" + LessonLanguage + "/" + AlfaWords[ii].audio;
+          WordAudio = "../audio/" + LessonLanguage + "/" + AlfaWords[ii].audio;
 
-          var Card1FrontSide = "<img class=\"front-face\" src=\"/pictures/" + AlfaWords[ii].image + "\" alt=\"" + WordX + "\" />";
+          var Card1FrontSide = "<img class=\"front-face\" src=\"../pictures/" + AlfaWords[ii].image + "\" alt=\"" + AlfaWords[ii].word + "\" />";
 
           var Card1OtherSide = "<img class=\"back-face\" src=\"card.png\"  />";
           var Card2OtherSide = "<img class=\"back-face\" src=\"card.png\"  />";
 
           if (CardsOpen) {
 
-            Card1FrontSide = "<img class=\"front-face\" src=\"/pictures/" + AlfaWords[ii].image + "\" alt=\"" + WordX + "\"  />";
+            Card1FrontSide = "<img class=\"front-face\" src=\"../pictures/" + AlfaWords[ii].image + "\" alt=\"" + AlfaWords[ii].word + "\"  />";
 
-            Card1OtherSide = "<img class=\"back-face\" src=\"/pictures/" + AlfaWords[ii].image + "\" alt=\"" + WordX + "\" /><div class='back-face' style='position: absolute; left:0px; right:0px; height:100%; width:100%; background-color: black;  opacity: 0.6;'></div>";
 
-            Card2OtherSide = "<div class=\"back-face\" style='font-size: 35px; text-align: center; padding-top: 20px; background-color: " + getRandomColor() + "; color:white;  text-shadow: 2px 2px #000000;'>" + WordX + "</div>";
+
+            if (LessonLanguage === "ch") {
+              Card1OtherSide = "<img class=\"back-face\" src=\"../pictures/" + AlfaWords[ii].image + "\" alt=\"" + AlfaWords[ii].word + "\" /><div class='back-face' style='position: absolute; left:0px; right:0px; height:100%; width:100%; background-color: black;  opacity: 0.6;'></div>";
+
+              Card2OtherSide = "<div class=\"back-face\" style='font-size: 45px; text-align: center; padding-top: 20px; background-color: " + getRandomColor() + "; color:white;  text-shadow: 2px 2px #000000; font-family: hanwangmingboldregular'>" + AlfaWords[ii].word + "</div>";
+
+            } else {
+              Card1OtherSide = "<img class=\"back-face\" src=\"../pictures/" + AlfaWords[ii].image + "\" alt=\"" + AlfaWords[ii].word + "\" /><div class='back-face' style='position: absolute; left:0px; right:0px; height:100%; width:100%; background-color: black;  opacity: 0.6;'></div>";
+
+              Card2OtherSide = "<div class=\"back-face\" style='font-size: 35px; text-align: center; padding-top: 20px; background-color: " + getRandomColor() + "; color:white;  text-shadow: 2px 2px #000000;'>" + AlfaWords[ii].word + "</div>";
+            }
+
+
           }
 
           CardID++;
           HtmlString = HtmlString + "\
-      <div class=\"memory-card " + ColWidth + " \" data-audio='" + WordAudio + "' data-framework=\"" + WordX + "\" ID='card_" + CardID + "'>" + Card1FrontSide + "\
+      <div class=\"memory-card " + ColWidth + " \" data-audio='" + WordAudio + "' data-framework=\"" + AlfaWords[ii].word + "\" ID='card_" + CardID + "'>" + Card1FrontSide + "\
           " + Card1OtherSide + "\
           </div>\
           ";
 
-          CardID++;
-          HtmlString = HtmlString + "\
-      <div class=\"memory-card " + ColWidth + " \" data-audio='" + WordAudio + "' data-framework=\"" + WordX + "\" ID='card_" + CardID + "'>\
+
+          if (LessonLanguage === "ch") {
+            CardID++;
+            HtmlString = HtmlString + "\
+      <div class=\"memory-card " + ColWidth + " \" data-audio='" + WordAudio + "' data-framework=\"" + AlfaWords[ii].word + "\" ID='card_" + CardID + "'>\
+          <div class=\"front-face\" style='font-size: 45px; text-align: center; padding-top: 20px; background-color: white; font-family: hanwangmingboldregular'>" + AlfaWords[ii].word + "</div>" + Card2OtherSide + "\
+          </div>\
+          ";
+
+          } else {
+
+            CardID++;
+            HtmlString = HtmlString + "\
+      <div class=\"memory-card " + ColWidth + " \" data-audio='" + WordAudio + "' data-framework=\"" + AlfaWords[ii].word + "\" ID='card_" + CardID + "'>\
           <div class=\"front-face\" style='font-size: 35px; text-align: center; padding-top: 20px; background-color: white;'>" + AlfaWords[ii].word + "</div>" + Card2OtherSide + "\
           </div>\
           ";
+          }
 
           CardAdded = true;
 
@@ -281,6 +279,8 @@ function CreateMemoryLessonBoard(RowCount) {
         }
       }
     }
+
+
   }
   $(".memory-game").html(HtmlString);
 
@@ -306,62 +306,38 @@ function CreateWordBoard() {
   GuessPictureSpellingFirstPlay = true;
   GuessPictureFirstCorrect = "";
 
+  var CorrectWord = -1;
+  var CorrectImagePos = -1;
   var WordList = "";
+  for (var iii = 0; iii < 1000; iii++) {
+    ii = Math.round(Math.random() * AlfaWords.length);
+    if ((Math.random() * 100 > 95)) {
+      CorrectWord = ii;
+      console.log(AlfaWords[ii].word);
+      GuessPictureCorrectWordAudio = "../audio/" + LessonLanguage + "/" + AlfaWords[ii].audio;
 
-  var WordX = AlfaWords[CurrentWordCardArrayPos].word.toLocaleUpperCase('tr-TR');
-  if (LowerCaseCard) {
-    WordX = capitalize(AlfaWords[CurrentWordCardArrayPos].word);
+      $("#CorrectWordContainer").html("<img src=\"../pictures/" + AlfaWords[ii].image + "\" alt=\"" + AlfaWords[CorrectWord].word + "\" style='max-width:400px;  display: block; margin-left: auto; margin-right: auto;' />");
+
+
+      play_sound(GuessPictureCorrectWordAudio, "media_audio", false);
+
+      break;
+
+      //AlfaWords[ii].word
+    }
   }
-
-  CurrentWordCardArrayPos++;
-  GuessPictureCorrectWordAudio = "/audio/" + LessonLanguage + "/" + AlfaWords[CurrentWordCardArrayPos].audio;
-
-  $("#CorrectWordContainer").html("<img src=\"/pictures/" + AlfaWords[CurrentWordCardArrayPos].image + "\" alt=\"" + AlfaWords[CurrentWordCardArrayPos].word + "\" style='max-width:400px;  display: block; margin-left: auto; margin-right: auto;' />");
-
-  play_sound(GuessPictureCorrectWordAudio, "media_audio", false);
 
   $("#WordContainer").html("");
 
+
   if (LessonLanguage === "ch") {
+    $("#WordContainer").append("<div class='word_card' data-correct='yes' data-word_audio='" + "../audio/" + LessonLanguage + "/" + AlfaWords[ii].audio + "' style='display:inline-block; font-size:60px; vertical-align: top; font-family: hanwangmingboldregular'>" + AlfaWords[ii].word + "</div>");
 
-    WordX = "<div style='display:inline-block; font-size:60px; vertical-align: top; font-family: hanwangmingboldregular'>" + AlfaWords[CurrentWordCardArrayPos].word + "</div>";
-
-    if (1 === 2) {
-      var bopomofo = AlfaWords[CurrentWordCardArrayPos].bopomofo;
-      var word_ch = AlfaWords[CurrentWordCardArrayPos].word;
-      var bopo_list = bopomofo.split(" ");
-
-      var NewWord = "<div>";
-      for (let i = 0; i < word_ch.length; i++) {
-        NewWord += "<div style='display:inline-block; font-size:60px; vertical-align: top;'>" + word_ch[i] + "</div>";
-        NewWord += "<div style='display:inline-block; font-size:20px; vertical-align: top; margin-top:12px; text-align: left;'>";
-
-        var bopo_new = bopo_list[i];
-        for (let j = 0; j < bopo_new.length; j++) {
-          if (bopo_new[j] === "ˋ" || bopo_new[j] === "ˊ" || bopo_new[j] === "ˇ" || bopo_new[j] === "˙" || (j == 0)) {
-          }
-          else {
-            NewWord += "<br>";
-          }
-          NewWord += bopo_new[j];
-        }
-        NewWord += "</div>";
-      }
-
-      WordX = NewWord;// + "<br><span style='font-size:20px;'>" + AlfaWords[CurrentWordCardArrayPos].bopomofo + "</span>";
-      WordX = "<span style=\"font-family: 'hanwangmingboldregular'; \">" + AlfaWords[CurrentWordCardArrayPos].word + "</span>";
-    }
-  }
-  else {
-    var WordX = AlfaWords[CurrentWordCardArrayPos].word.toLocaleUpperCase('tr-TR');
-    if (LowerCaseCard) {
-      WordX = capitalize(AlfaWords[CurrentWordCardArrayPos].word);
-    }
+  } else {
+    $("#WordContainer").append("<div class='word_card' data-correct='yes' data-word_audio='" + "../audio/" + LessonLanguage + "/" + AlfaWords[CorrectWord].audio + "'>" + AlfaWords[CorrectWord].word + "</div>");
   }
 
-  $("#WordContainer").append("<div class='word_card' data-correct='yes' data-word_audio='" + "/audio/" + LessonLanguage + "/" + AlfaWords[CurrentWordCardArrayPos].audio + "'>" + WordX + "</div>");
-
-  var WordList = AlfaWords[CurrentWordCardArrayPos].word + ",";
+  var WordList = AlfaWords[CorrectWord].word + ",";
 
   var RandomWordChoices = 0;
   for (var iii = 0; iii < 1000; iii++) {
@@ -370,66 +346,31 @@ function CreateWordBoard() {
       ii--;
     }
 
-
-    var WordX = AlfaWords[ii].word;
-
-    if ((Math.random() * 100 > 95 && RandomWordChoices < 3 && (WordList.indexOf(WordX) === -1))) {
-
-      WordList += WordX + ",";
+    if ((Math.random() * 100 > 95 && RandomWordChoices < 5 && (WordList.indexOf(AlfaWords[ii].word) === -1))) {
+      RandomWordChoices++;
+      console.log(AlfaWords[ii].word);
 
       if (LessonLanguage === "ch") {
-        WordX = "<div style='display:inline-block; font-size:60px; vertical-align: top; font-family: hanwangmingboldregular'>" + AlfaWords[ii].word + "</div>";
+        $("#WordContainer").append("<div class='word_card' data-correct='no'  data-word_audio='" + "../audio/" + LessonLanguage + "/" + AlfaWords[ii].audio + "' style='display:inline-block; font-size:60px; vertical-align: top; font-family: hanwangmingboldregular'>" + AlfaWords[ii].word + "</div>");
 
-        if (1 === 2) {
-          if (AlfaWords[ii].bopomofo === null || AlfaWords[ii].bopomofo === "") {
-            WordX = "<div style='display:inline-block; font-size:60px; vertical-align: top;'>" + AlfaWords[ii].word + "</div>";
-          }
-          else {
+      } else {
 
-            var bopomofo = AlfaWords[ii].bopomofo;
-            var word_ch = AlfaWords[ii].word;
-            var bopo_list = bopomofo.split(" ");
-
-            var NewWord = "<div>";
-            for (let i = 0; i < word_ch.length; i++) {
-              NewWord += "<div style='display:inline-block; font-size:60px; vertical-align: top;'>" + word_ch[i] + "</div>";
-              NewWord += "<div style='display:inline-block; font-size:20px; vertical-align: top; margin-top:12px; text-align: left;'>";
-
-              var bopo_new = bopo_list[i];
-              for (let j = 0; j < bopo_new.length; j++) {
-                if (bopo_new[j] === "ˋ" || bopo_new[j] === "ˊ" || bopo_new[j] === "ˇ" || bopo_new[j] === "˙" || (j == 0)) {
-                }
-                else {
-                  NewWord += "<br>";
-                }
-                NewWord += bopo_new[j];
-              }
-              NewWord += "</div>";
-            }
-
-            WordX = NewWord;// + "<br><span style='font-size:20px;'>" + AlfaWords[CurrentWordCardArrayPos].bopomofo + "</span>";
-
-            // WordX = AlfaWords[ii].word + "<br><span style='font-size:20px;'>" + AlfaWords[ii].bopomofo + "</span>";
-          }
-        }
+        $("#WordContainer").append("<div class='word_card' data-correct='no'  data-word_audio='" + "../audio/" + LessonLanguage + "/" + AlfaWords[ii].audio + "'>" + AlfaWords[ii].word + "</div>");
       }
-      else {
-        var WordX = AlfaWords[ii].word.toLocaleUpperCase('tr-TR');
-        if (LowerCaseCard) {
-          WordX = capitalize(AlfaWords[ii].word);
-        }
-      }
+      WordList += AlfaWords[ii].word + ",";
 
-      RandomWordChoices++;
-      $("#WordContainer").append("<div class='word_card' data-correct='no'  data-word_audio='" + "/audio/" + LessonLanguage + "/" + AlfaWords[ii].audio + "'>" + WordX + "</div>");
     }
   }
 
   $("#WordContainer").shuffleChildren();
+
   $(".word_card").hide();
 
+
   $(".word_card").off().on('click touchstart', function () {
+
     if (!media_audio_playing && !media_audio2_playing) {
+
       $(".word_card").addClass("LowOpacity");
       $(this).removeClass("LowOpacity");
       $(this).addClass("word_card-active");
@@ -442,6 +383,8 @@ function CreateWordBoard() {
       GuessSelectedPicture = this;
     }
   });
+
+
 }
 
 
@@ -469,26 +412,8 @@ function getParameterByName(name, url) {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-function shuffleArray(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
 
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-}
-
-
+//var LessonLength = parseInt(getParameterByName("length"), 10);
 var WordHints = getParameterByName("hints") === "yes";
 var LessonRandom = getParameterByName("random");
 var LessonLetters = getParameterByName("letters");
@@ -542,12 +467,11 @@ var _listener = function (playerid) {
             setTimeout(function () {
               $("#ballons").hide();
 
-              if (GuessPictureCount > 999) {
+              if (GuessPictureCount > 3) {
                 CreateMemoryLessonBoard(LessonRowCount);
                 GuessPictureCount = 0;
               }
               else {
-                LowerCaseCard = (Math.random() * 100 > 30);
                 CreateWordBoard();
               }
 
@@ -557,12 +481,11 @@ var _listener = function (playerid) {
             play_sound("../audio/correct-sound/bravo-" + Math.floor((Math.random() * 10) + 1) + ".mp3", "media_audio2", false);
 
             setTimeout(function () {
-              if (GuessPictureCount > 999) {
+              if (GuessPictureCount > 3) {
                 CreateMemoryLessonBoard(LessonRowCount);
                 GuessPictureCount = 0;
               }
               else {
-                LowerCaseCard = (Math.random() * 100 > 30);
                 CreateWordBoard();
               }
 
@@ -720,25 +643,6 @@ function play_sound(mp3, playerid, pause_play) {
   }
 }
 
-function InitLesson() {
-  shuffleArray(AlfaWords);
-
-  ScreenLessonType = 2;
-  if (ScreenLessonType === 2) {
-    if (LessonRowCount === 0) {
-      LessonRowCount = 1;
-    }
-    LowerCaseCard = (Math.random() * 100 > 30);
-    CreateWordBoard();
-  }
-
-
-  if (ScreenLessonType === 1) {
-    LessonRowCount++;
-    CreateMemoryLessonBoard(LessonRowCount);
-  }
-
-}
 
 $(document).ready(function () {
 
@@ -773,7 +677,20 @@ $(document).ready(function () {
         }
       }
 
-      InitLesson();
+      LessonLength = 24 + 18 + 24;
+      ScreenLessonType = 2;
+      if (ScreenLessonType === 2) {
+        if (LessonRowCount === 0) {
+          LessonRowCount = 1;
+        }
+        CreateWordBoard();
+      }
+
+
+      if (ScreenLessonType === 1) {
+        LessonRowCount++;
+        CreateMemoryLessonBoard(LessonRowCount);
+      }
 
 
     }
@@ -791,12 +708,11 @@ $(document).ready(function () {
   );
 
   $("#skip_lesson").on('click', function () {
-    if (GuessPictureCount > 999) {
+    if (GuessPictureCount > 3) {
       CreateMemoryLessonBoard(LessonRowCount);
       GuessPictureCount = 0;
     }
     else {
-      LowerCaseCard = (Math.random() * 100 > 30);
       CreateWordBoard();
     }
   });
@@ -807,7 +723,6 @@ $(document).ready(function () {
     }
     if (ScreenLessonType === 2) {
       GuessPictureCount--;
-      LowerCaseCard = (Math.random() * 100 > 30);
       CreateWordBoard();
     }
   });
@@ -828,7 +743,6 @@ $(document).ready(function () {
   });
 
   $("#ballons").hide();
-
 
 });
 

@@ -423,7 +423,7 @@ function LoadWords() {
 			// console.log(data);
 
 			for (var i = 0; i < AllWordsData.length; i++) {
-				if (AllWordsData[i].categoryID === LessonCategory || AllWordsData[i].categoryParentID === LessonCategory) {
+				if (LessonCategory.indexOf("-"+AllWordsData[i].categoryID+"-") !== -1) {
 					if (AllWordsData[i].word_TR !== "" && AllWordsData[i].word_TR !== null && LessonLanguage === "tr") {
 						// console.log(AllWordsData[i]);
 
