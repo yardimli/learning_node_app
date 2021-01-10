@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Fans Lesson</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="../css/balloons.css" rel="stylesheet">
+
+    <style>
+        @font-face {
+            font-family: 'hanwangmingboldregular';
+            src: url('../font/wp010-08.ttf') format('truetype');
+        }
+    </style>
+
+    <script>
+        const {ipcRenderer} = require('electron');
+    </script>
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="keys.js"></script>
+
+    <!-- Insert this line above script imports  -->
+    <script>if (typeof module === 'object') {
+        window.module = module;
+        module = undefined;
+    }</script>
+
+
+    <!-- Insert this line after script imports -->
+    <script>if (window.module) module = window.module;</script>
+
+</head>
+
+<style>
+
+    #animation_view {
+        /*position: absolute;*/
+        /*top: 20px;*/
+        /*left: 40px;*/
+        /*font-size:60px;*/
+
+    }
+
+</style>
+<body>
+<div id="animation_view"></div>
+
+<audio preload="none" id="media_audio">
+    <source id="media_audio_source" src="" type="audio/mpeg">
+</audio>
+
+
+</body>
+
+</html>

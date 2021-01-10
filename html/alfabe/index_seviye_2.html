@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';"/>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Alphabet Letter Lesson</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="../css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link href="../css/alfabe.css" rel="stylesheet">
+
+	<link href="../css/balloons.css" rel="stylesheet">
+
+	<style>
+    @font-face {
+      font-family: 'hanwangmingboldregular';
+      src: url('../font/wp010-08.ttf') format('truetype');
+    }
+	</style>
+
+	<script>
+		const {ipcRenderer} = require('electron');
+	</script>
+
+	<!-- Insert this line above script imports  -->
+	<script>if (typeof module === 'object') {
+		window.module = module;
+		module = undefined;
+	}</script>
+
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/bootstrap.bundle.min.js"></script>
+	<script src="../js/anime.min.js"></script>
+	<script src="alfabe_seviye_2.js"></script>
+
+	<!-- Insert this line after script imports -->
+	<script>if (window.module) module = window.module;</script>
+
+
+</head>
+
+<body>
+<div id="top-half" style="overflow: hidden; height: 50vh;">
+	<div style="position:fixed; top:0px;  width:100%; overflow:hidden; white-space: nowrap; height:15px; z-index: 10; display: flex; background-color: white;"
+	     id="progress_box">
+		<div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_box" style="width:0%"></div>
+	</div>
+
+	<link href='https://fonts.googleapis.com/css?family=Wendy+One' rel='stylesheet' type='text/css'>
+	<div style="position:fixed; bottom:0px;  width:100%; overflow:hidden; white-space: nowrap; height:250px; z-index: 22; display: flex;" id="ballons">
+		<div class="balloons_container">
+			<div class="balloon">
+				<div><span>B</span></div>
+				<div><span>R</span></div>
+				<div><span>A</span></div>
+				<div><span>V</span></div>
+				<div><span>O</span></div>
+				<div><span>!</span></div>
+			</div>
+		</div>
+	</div>
+
+	<div id="lesson_view"
+	     style="margin:0 auto; padding:5px; width:100%; background-color: white; text-align: left; position: relative;  height: 100%; position:relative; overflow: hidden">
+<!--		border: 5px solid black;-->
+		<img src="" id="word_image" style="max-height:100%; z-index:10; position: absolute; right:0px; top:0px;">
+
+		<video autoplay="autoplay" muted="muted" id="media_video" style="position:absolute; left:-50px; top:0px; height:100%; z-index: 8;">
+			<source id="media_video_source" src="" type="video/mp4">
+		</video>
+
+		<div id="word_letter" class="animate-flicker" style="position: absolute; top:10px; right:50px; z-index: 11;"></div>
+		<div id="word_spelling" style="position: absolute; bottom:-40px; right:150px; z-index: 11;"></div>
+	</div>
+
+</div>
+<div id="bottom-half" style="overflow: hidden; height: 50vh;">
+</div>
+
+<audio preload="none" id="media_audio">
+	<source id="media_audio_source" src="" type="audio/mpeg">
+</audio>
+<audio preload="none" id="media_audio2">
+	<source id="media_audio2_source" src="" type="audio/mpeg">
+</audio>
+
+
+</body>
+
+</html>

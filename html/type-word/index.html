@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';"/>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Type Word</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="../css/balloons.css" rel="stylesheet">
+  <link href="../css/type-words.css" rel="stylesheet">
+
+  <style>
+    @font-face {
+      font-family: 'hanwangmingboldregular';
+      src: url('../font/wp010-08.ttf') format('truetype');
+    }
+  </style>
+
+  <script>
+    const {ipcRenderer} = require('electron');
+  </script>
+
+  <!-- Insert this line above script imports  -->
+  <script>if (typeof module === 'object') {
+    window.module = module;
+    module = undefined;
+  }</script>
+
+  <script src="../js/jquery.min.js"></script>
+  <script src="../js/bootstrap.bundle.min.js"></script>
+  <script src="type-word.js"></script>
+
+
+  <!-- Insert this line after script imports -->
+  <script>if (window.module) module = window.module;</script>
+
+</head>
+
+<body>
+
+<div style="position:fixed; top:0px;  width:100%; overflow:hidden; white-space: nowrap; height:15px; z-index: 10; display: flex; background-color: white;"
+     id="progress_box">
+  <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_box" style="width:0%"></div>
+</div>
+
+<link href='https://fonts.googleapis.com/css?family=Wendy+One' rel='stylesheet' type='text/css'>
+<div style="position:fixed; bottom:0px;  width:100%; overflow:hidden; white-space: nowrap; height:250px; z-index: 10; display: flex;" id="ballons">
+  <div class="balloons_container">
+    <div class="balloon">
+      <div><span>B</span></div>
+      <div><span>R</span></div>
+      <div><span>A</span></div>
+      <div><span>V</span></div>
+      <div><span>O</span></div>
+      <div><span>!</span></div>
+    </div>
+  </div>
+</div>
+
+<div style="position: fixed; top:10px; left:10px; width:95%; height: 95%; overflow: auto; z-index: 999; background-color: white;" ID="picture_box">
+</div>
+
+<div style="position: fixed; top:30px; left:30px; width:90%; height: 200px; overflow: auto; display: none; text-align: center;" ID="word_picture_box">
+  <img src="" id="word_picture" style="height: 100%;">
+</div>
+
+<div id="WordsForLesson" class="writer"
+     style="position: fixed; bottom:0px; left:0px; font-size: 64px; color:white; background-color: rgba(0,0,0,0.5); right:0px; min-height:30px; padding:5px;"></div>
+<div id="animation_view"></div>
+<div id="BeginLesson"
+     style="position: fixed; right:10px; bottom:10px;  background-color: rgb(255,128,0); color:white; border: 1px solid white; font-size: 20px; padding: 10px; border-radius: 5px; cursor: pointer; z-index: 999;">
+  BEGIN LESSON
+</div>
+<div id="animation_view"></div>
+
+<audio preload="none" id="media_audio">
+  <source id="media_audio_source" src="" type="audio/mpeg">
+</audio>
+
+<audio preload="none" id="media_audio2">
+  <source id="media_audio2_source" src="" type="audio/mpeg">
+</audio>
+
+</body>
+
+</html>

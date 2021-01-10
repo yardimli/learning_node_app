@@ -1,0 +1,722 @@
+[
+  {
+    "id": "1000",
+    "need_keyboard" : "yes",
+    "name": "Harfler Seviye 2",
+    "description": "Sözcükleri ve Harfleri Resimler ile Öğrenmek",
+    "picture": "./lesson_pictures/Alphabet2.jpg",
+    "screen_path": "./html/alfabe/index_seviye_2.html?",
+    "keyboard_path": "./html/keyboard/index.html?",
+    "mini_keyboard_path": "./html/keyboard/mini_tr_keyboard.html?",
+    "checkboxes_query": "letters",
+    "checkboxes": [
+      {
+        "name": "Tümü",
+        "value": "ABCÇDEFGHİIJKLMNOÖPRSŞTUÜVYZ"
+      },
+      {
+        "name": "A",
+        "value": "A"
+      },
+      {
+        "name": "B",
+        "value": "B"
+      },
+      {
+        "name": "C",
+        "value": "C"
+      },
+      {
+        "name": "Ç",
+        "value": "Ç"
+      },
+      {
+        "name": "D",
+        "value": "D"
+      },
+      {
+        "name": "E",
+        "value": "E"
+      },
+      {
+        "name": "F",
+        "value": "F"
+      },
+      {
+        "name": "G",
+        "value": "G"
+      },
+      {
+        "name": "Ğ",
+        "value": "Ğ"
+      },
+      {
+        "name": "H",
+        "value": "H"
+      },
+      {
+        "name": "İ",
+        "value": "İ"
+      },
+      {
+        "name": "I",
+        "value": "I"
+      },
+      {
+        "name": "J",
+        "value": "J"
+      },
+      {
+        "name": "K",
+        "value": "K"
+      },
+      {
+        "name": "L",
+        "value": "L"
+      },
+      {
+        "name": "M",
+        "value": "M"
+      },
+      {
+        "name": "N",
+        "value": "N"
+      },
+      {
+        "name": "O",
+        "value": "O"
+      },
+      {
+        "name": "Ö",
+        "value": "Ö"
+      },
+      {
+        "name": "P",
+        "value": "P"
+      },
+      {
+        "name": "R",
+        "value": "R"
+      },
+      {
+        "name": "S",
+        "value": "S"
+      },
+      {
+        "name": "Ş",
+        "value": "Ş"
+      },
+      {
+        "name": "T",
+        "value": "T"
+      },
+      {
+        "name": "U",
+        "value": "U"
+      },
+      {
+        "name": "Ü",
+        "value": "Ü"
+      },
+      {
+        "name": "V",
+        "value": "V"
+      },
+      {
+        "name": "Y",
+        "value": "Y"
+      },
+      {
+        "name": "Z",
+        "value": "Z"
+      }
+    ],
+    "lessons": [
+      {
+        "name": "Full Incremental Keyboard",
+        "query": "random",
+        "value": "full_inc"
+      },
+      {
+        "name": "Full Keyboard",
+        "query": "random",
+        "value": "full"
+      },
+      {
+        "name": "Single Letter",
+        "query": "random",
+        "value": "singleletter"
+      },
+      {
+        "name": "One Random",
+        "query": "random",
+        "value": "random_one"
+      },
+      {
+        "name": "Two Random",
+        "query": "random",
+        "value": "random_two"
+      },
+      {
+        "name": "Three Random",
+        "query": "random",
+        "value": "random_three"
+      },
+      {
+        "name": "Six Random",
+        "query": "random",
+        "value": "random_many"
+      },
+      {
+        "name": "A-Z Random",
+        "query": "random",
+        "value": "random_many_az"
+      },
+      {
+        "name": "Six Random Eliminate",
+        "query": "random",
+        "value": "random_eliminate"
+      }
+    ],
+    "options": [
+      {
+        "name": "Alphabetic Order",
+        "query": "hints",
+        "value": "alpha_order"
+      },
+      {
+        "name": "Without Hints",
+        "query": "hints",
+        "value": "no"
+      },
+      {
+        "name": "With Hints",
+        "query": "hints",
+        "value": "yes"
+      }
+    ],
+    "options2": [
+      {
+        "name": "Continue till Correct",
+        "query": "length",
+        "value": "99"
+      },
+      {
+        "name": "1 of each Letter",
+        "query": "length",
+        "value": "1"
+      },
+      {
+        "name": "10 of each Letter",
+        "query": "length",
+        "value": "10"
+      },
+      {
+        "name": "2 of each Letter",
+        "query": "length",
+        "value": "2"
+      },
+      {
+        "name": "3 of each Letter",
+        "query": "length",
+        "value": "3"
+      },
+      {
+        "name": "4 of each Letter",
+        "query": "length",
+        "value": "4"
+      },
+      {
+        "name": "5 of each Letter",
+        "query": "length",
+        "value": "5"
+      }
+    ]
+  },
+  {
+    "id": "2000",
+    "name": "Memory",
+    "description": "Memory Game",
+    "picture": "./lesson_pictures/memory-oyunu-big.jpg",
+    "screen_path": "./html/memory-game/index.html?",
+    "keyboard_path": "./html/keyboard/index.html?",
+    "mini_keyboard_path": "./html/keyboard/mini_tr_keyboard.html?",
+    "need_keyboard" : "no",
+    "checkboxes_query": "scoring",
+    "checkboxes": [
+      {
+        "name": "Keep Score",
+        "value": "Yes"
+      },
+      {
+        "name": "Don't Keep Score",
+        "value": "No"
+      }
+    ],
+    "lessons": [
+      {
+        "name": "Turkish",
+        "query": "language",
+        "value": "tr"
+      },
+      {
+        "name": "English",
+        "query": "language",
+        "value": "en"
+      },
+      {
+        "name": "Chinese",
+        "query": "language",
+        "value": "ch"
+      }
+    ]
+  },
+  {
+    "id": "3000",
+    "name": "Flash Cards",
+    "description": "Flash Kart Oyunu",
+    "picture": "./lesson_pictures/flash_cards.jpg",
+    "screen_path": "./html/flash-cards/index.html?",
+    "keyboard_path": "./html/keyboard/index.html?",
+    "mini_keyboard_path": "./html/keyboard/mini_tr_keyboard.html?",
+    "need_keyboard" : "no",
+    "checkboxes_query": "scoring",
+    "checkboxes": [
+      {
+        "name": "Keep Score",
+        "value": "Yes"
+      },
+      {
+        "name": "Don't Keep Score",
+        "value": "No"
+      }
+    ],
+    "lessons": [
+    {
+      "name": "Turkish",
+      "query": "language",
+      "value": "tr"
+    },
+      {
+        "name": "English",
+        "query": "language",
+        "value": "en"
+      },
+      {
+        "name": "Chinese",
+        "query": "language",
+        "value": "ch"
+      }
+  ],
+    "options": [
+      {
+        "name": "30 words",
+        "query": "word_count",
+        "value": "30"
+      },
+      {
+        "name": "60 words",
+        "query": "word_count",
+        "value": "60"
+      },
+      {
+        "name": "90 words",
+        "query": "word_count",
+        "value": "90"
+      },
+      {
+        "name": "120 words",
+        "query": "word_count",
+        "value": "120"
+      }
+    ],
+    "options2": [
+      {
+        "name": "Single Word",
+        "query": "grid",
+        "value": "1"
+      },
+      {
+        "name": "4 Words per Page",
+        "query": "grid",
+        "value": "4"
+      },
+      {
+        "name": "6 Words per Page",
+        "query": "grid",
+        "value": "6"
+      }
+    ]
+
+  },
+  {
+    "id": "3500",
+    "name": "Opposites",
+    "description": "Karsitlar",
+    "picture": "./lesson_pictures/opposites.png",
+    "screen_path": "./html/opposites/index.html?",
+    "keyboard_path": "./html/keyboard/index.html?",
+    "mini_keyboard_path": "./html/keyboard/mini_tr_keyboard.html?",
+    "need_keyboard" : "no",
+    "checkboxes_query": "scoring",
+    "checkboxes": [
+      {
+        "name": "Keep Score",
+        "value": "Yes"
+      },
+      {
+        "name": "Don't Keep Score",
+        "value": "No"
+      }
+    ],
+    "lessons": [
+      {
+        "name": "Turkish",
+        "query": "language",
+        "value": "tr"
+      },
+      {
+        "name": "English",
+        "query": "language",
+        "value": "en"
+      },
+      {
+        "name": "Chinese",
+        "query": "language",
+        "value": "ch"
+      }
+    ]
+
+  },
+  {
+    "id": "4004",
+    "name": "Type Words Chinese",
+    "description": "Type Letters",
+    "picture": "./lesson_pictures/falling-letters.gif",
+    "screen_path": "./html/type-word/index.html?",
+    "keyboard_path": "./html/keyboard/index.html?",
+    "mini_keyboard_path": "./html/keyboard/mini_tw_keyboard.html?",
+    "need_keyboard" : "yes",
+    "checkboxes_query": "scoring",
+    "checkboxes": [
+      {
+        "name": "Keep Score",
+        "value": "Yes"
+      },
+      {
+        "name": "Don't Keep Score",
+        "value": "No"
+      }
+    ],
+    "lessons": [
+      {
+        "name": "Chinese",
+        "query": "language",
+        "value": "ch"
+      }
+    ],
+    "options": [
+      {
+        "name": "All Letters From Word",
+        "query": "random",
+        "value": "fromstring"
+      },
+      {
+        "name": "Full Keyboard",
+        "query": "random",
+        "value": "full"
+      },
+      {
+        "name": "Single Letter",
+        "query": "random",
+        "value": "singleletter"
+      }
+    ]
+  },
+  {
+    "id": "4000",
+    "name": "Type Words En",
+    "description": "Type Letters",
+    "picture": "./lesson_pictures/falling-letters.gif",
+    "screen_path": "./html/type-word/index.html?",
+    "keyboard_path": "./html/keyboard/index.html?",
+    "mini_keyboard_path": "./html/keyboard/mini_en_keyboard.html?",
+    "need_keyboard" : "yes",
+    "checkboxes_query": "scoring",
+    "checkboxes": [
+      {
+        "name": "Keep Score",
+        "value": "Yes"
+      },
+      {
+        "name": "Don't Keep Score",
+        "value": "No"
+      }
+    ],
+    "lessons": [
+      {
+        "name": "English",
+        "query": "language",
+        "value": "en"
+      }
+    ],
+    "options": [
+      {
+        "name": "All Letters From Word",
+        "query": "random",
+        "value": "fromstring"
+      },
+      {
+        "name": "Full Keyboard",
+        "query": "random",
+        "value": "full"
+      },
+      {
+        "name": "Single Letter",
+        "query": "random",
+        "value": "singleletter"
+      }
+    ]
+  },
+  {
+    "id": "4008",
+    "name": "Type Words Tr",
+    "description": "Type Letters",
+    "picture": "./lesson_pictures/falling-letters.gif",
+    "screen_path": "./html/type-word/index.html?",
+    "keyboard_path": "./html/keyboard/index.html?",
+    "mini_keyboard_path": "./html/keyboard/mini_tr_keyboard.html?",
+    "need_keyboard" : "yes",
+    "checkboxes_query": "scoring",
+    "checkboxes": [
+      {
+        "name": "Keep Score",
+        "value": "Yes"
+      },
+      {
+        "name": "Don't Keep Score",
+        "value": "No"
+      }
+    ],
+    "lessons": [
+      {
+        "name": "Turkish",
+        "query": "language",
+        "value": "tr"
+      }
+    ],
+    "options": [
+      {
+        "name": "All Letters From Word",
+        "query": "random",
+        "value": "fromstring"
+      },
+      {
+        "name": "Full Keyboard",
+        "query": "random",
+        "value": "full"
+      },
+      {
+        "name": "Single Letter",
+        "query": "random",
+        "value": "singleletter"
+      }
+    ]
+  },
+  {
+    "id": "7000",
+    "name": "Fans Turkish",
+    "description": "Learn numbers with spinning fans",
+    "picture": "./lesson_pictures/1.png",
+    "screen_path": "./html/fans/index.html?l=tr&",
+    "keyboard_path": "./html/keyboard/index.html?",
+    "mini_keyboard_path": "./html/keyboard/mini_tr_keyboard.html?",
+    "need_keyboard" : "yes",
+    "checkboxes_query": "hints",
+    "checkboxes": [
+      {
+        "name": "hints",
+        "value": "yes"
+      }
+    ],
+    "lessons": [
+      {
+        "name": "Fan Numbers 3",
+        "query": "max_fans",
+        "value": "3"
+      },
+      {
+        "name": "Fan Numbers 4",
+        "query": "max_fans",
+        "value": "4"
+      },
+      {
+        "name": "Fan Numbers 5",
+        "query": "max_fans",
+        "value": "5"
+      },
+      {
+        "name": "Fan Numbers 6",
+        "query": "max_fans",
+        "value": "6"
+      },
+      {
+        "name": "Fan Numbers 7",
+        "query": "max_fans",
+        "value": "7"
+      },
+      {
+        "name": "Fan Numbers 8",
+        "query": "max_fans",
+        "value": "8"
+      },
+      {
+        "name": "Fan Numbers 9",
+        "query": "max_fans",
+        "value": "9"
+      }
+    ],
+    "options": [
+      {
+        "name": "Sequential Random",
+        "query": "random",
+        "value": "sequential"
+      },
+      {
+        "name": "One Random Extra",
+        "query": "random",
+        "value": "one_more"
+      },
+      {
+        "name": "On Both Sides",
+        "query": "random",
+        "value": "two_more"
+      }
+    ],
+    "options2": [
+      {
+        "name": "10 Questions",
+        "query": "length",
+        "value": "10"
+      },
+      {
+        "name": "20 Questions",
+        "query": "length",
+        "value": "20"
+      }
+    ]
+  },
+  {
+    "id": "8000",
+    "name": "Fans Chinese",
+    "description": "Learn numbers with spinning fans",
+    "picture": "./lesson_pictures/1.png",
+    "screen_path": "./html/fans/index.html?l=ch&",
+    "keyboard_path": "./html/keyboard/index.html?",
+    "mini_keyboard_path": "./html/keyboard/mini_tw_keyboard.html?",
+    "need_keyboard" : "yes",
+    "checkboxes_query": "hints",
+    "checkboxes": [
+      {
+        "name": "hints",
+        "value": "yes"
+      }
+    ],
+    "lessons": [
+      {
+        "name": "Fan Numbers 3",
+        "query": "max_fans",
+        "value": "3"
+      },
+      {
+        "name": "Fan Numbers 4",
+        "query": "max_fans",
+        "value": "4"
+      },
+      {
+        "name": "Fan Numbers 5",
+        "query": "max_fans",
+        "value": "5"
+      },
+      {
+        "name": "Fan Numbers 6",
+        "query": "max_fans",
+        "value": "6"
+      },
+      {
+        "name": "Fan Numbers 7",
+        "query": "max_fans",
+        "value": "7"
+      },
+      {
+        "name": "Fan Numbers 8",
+        "query": "max_fans",
+        "value": "8"
+      },
+      {
+        "name": "Fan Numbers 9",
+        "query": "max_fans",
+        "value": "9"
+      }
+    ],
+    "options": [
+      {
+        "name": "Sequential Random",
+        "query": "random",
+        "value": "sequential"
+      },
+      {
+        "name": "One Random Extra",
+        "query": "random",
+        "value": "one_more"
+      },
+      {
+        "name": "On Both Sides",
+        "query": "random",
+        "value": "two_more"
+      }
+    ],
+    "options2": [
+      {
+        "name": "10 Questions",
+        "query": "length",
+        "value": "10"
+      },
+      {
+        "name": "20 Questions",
+        "query": "length",
+        "value": "20"
+      }
+    ]
+  },
+  {
+    "id": "9000",
+    "name": "Chinese Keyboard",
+    "description": "Chinese keyboard fun",
+    "picture": "./lesson_pictures/keyboard.png",
+    "screen_path": "./html/keyboard_fun_ch/index.html?",
+    "keyboard_path": "./html/keyboard/index.html?",
+    "mini_keyboard_path": "./html/keyboard/mini_tw_keyboard.html?",
+    "need_keyboard" : "yes"
+  },
+  {
+    "id": "10000",
+    "name": "Turkce Klavye",
+    "description": "Turkish keyboard fun",
+    "picture": "./lesson_pictures/keyboard.png",
+    "screen_path": "./html/keyboard_fun_tr/index.html?",
+    "keyboard_path": "./html/keyboard/index.html?",
+    "mini_keyboard_path": "./html/keyboard/mini_tr_keyboard.html?",
+    "need_keyboard" : "yes"
+  },
+  {
+    "id": "11000",
+    "name": "English Keyboard",
+    "description": "Turkish keyboard fun",
+    "picture": "./lesson_pictures/keyboard.png",
+    "screen_path": "./html/keyboard_fun_en/index.html?",
+    "keyboard_path": "./html/keyboard/index.html?",
+    "mini_keyboard_path": "./html/keyboard/mini_en_keyboard.html?",
+    "need_keyboard" : "yes"
+  }
+]

@@ -1,0 +1,69 @@
+{
+  "name": "learning_node_app",
+  "version": "0.1.0",
+  "dependencies": {
+    "async": "^3.2.0",
+    "electron-dl": "^3.0.2",
+    "electron-download-manager": "^2.1.2",
+    "electron-squirrel-startup": "^1.0.0",
+    "electron-tabs": "^0.15.0",
+    "md5-file": "^5.0.0",
+    "mkdirp": "^1.0.4"
+  },
+  "cc_scripts": {
+    "cc_start": "node server.js"
+  },
+  "main": "main.js",
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.54",
+    "@electron-forge/maker-deb": "^6.0.0-beta.54",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
+    "@electron-forge/maker-zip": "^6.0.0-beta.54",
+    "electron": "^11.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yardimli/learning_node_app.git"
+  },
+  "keywords": [],
+  "author": "Ekim Emre Yardimli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yardimli/learning_node_app/issues"
+  },
+  "homepage": "https://github.com/yardimli/learning_node_app#readme",
+  "description": "Learn to Type app",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "learning_node_app"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
+  }
+}

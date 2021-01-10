@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Fans Lesson</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/fans.css" rel="stylesheet">
+    <link href="../css/balloons.css" rel="stylesheet">
+
+    <style>
+        @font-face {
+            font-family: 'hanwangmingboldregular';
+            src: url('../font/wp010-08.ttf') format('truetype');
+        }
+    </style>
+
+    <script>
+        const {ipcRenderer} = require('electron');
+    </script>
+
+    <!-- Insert this line above script imports  -->
+    <script>if (typeof module === 'object') {
+        window.module = module;
+        module = undefined;
+    }</script>
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="fans.js"></script>
+
+    <!-- Insert this line after script imports -->
+    <script>if (window.module) module = window.module;</script>
+
+</head>
+
+<style>
+
+    .fan_1 {
+        position: absolute;
+        top: 50px;
+        left: 50px;
+        width: 400px;
+    }
+
+     body {
+         overflow: hidden;
+     }
+
+    .fan_1 {
+        position: absolute;
+        top: 50px;
+        left: 50px;
+        width: 400px;
+    }
+
+    @keyframes zoomAnimation {
+        0% {
+            transform: scale(1, 1);
+        }
+        50% {
+            transform: scale(11, 11);
+        }
+        90% {
+            transform: scale(40, 40);
+        }
+        100% {
+            transform: scale(44, 44);
+            opacity: 0;
+        }
+    }
+
+    .animate-zoom {
+        -webkit-animation: zoomAnimation 1.5s;
+        -moz-animation: zoomAnimation 1.5s;
+        -o-animation: zoomAnimation 1.5s;
+        animation: zoomAnimation 1.5s;
+        animation-fill-mode: forwards;
+    }
+
+
+    @keyframes flickerAnimation {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @-o-keyframes flickerAnimation {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @-moz-keyframes flickerAnimation {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @-webkit-keyframes flickerAnimation {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .animate-flicker {
+        -webkit-animation: flickerAnimation 3s infinite;
+        -moz-animation: flickerAnimation 3s infinite;
+        -o-animation: flickerAnimation 3s infinite;
+        animation: flickerAnimation 3s infinite;
+    }
+
+
+    .ml2 {
+        font-weight: 900;
+        font-size: 9.5em;
+    }
+
+    .ml2 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+
+
+    .ml6 {
+        position: relative;
+        font-weight: 900;
+        font-size: 9.3em;
+    }
+
+    .ml6 .text-wrapper {
+        position: relative;
+        display: inline-block;
+        padding-top: 0.2em;
+        padding-right: 0.05em;
+        padding-bottom: 0.1em;
+        overflow: hidden;
+    }
+
+    .ml6 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+
+
+    .ml11 {
+        font-weight: 700;
+        font-size: 9.5em;
+    }
+
+    .ml11 .text-wrapper {
+        position: relative;
+        display: inline-block;
+        padding-top: 0.1em;
+        padding-right: 0.05em;
+        padding-bottom: 0.15em;
+    }
+
+    .ml11 .line {
+        opacity: 0;
+        position: absolute;
+        left: 0;
+        height: 100%;
+        width: 3px;
+        background-color: #fff;
+        transform-origin: 0 50%;
+    }
+
+    .ml11 .line1 {
+        top: 0;
+        left: 0;
+    }
+
+    .ml11 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+
+
+
+    .progress_background {
+        background: linear-gradient(133deg, #2b9fee, #95bdff, #154fe1, #ffffff);
+        background-size: 800% 800%;
+
+        -webkit-animation: fade_progress 9s ease infinite;
+        -moz-animation: fade_progress 9s ease infinite;
+        animation: fade_progress 9s ease infinite;
+    }
+
+
+    @-webkit-keyframes fade_progress {
+        0%{background-position:0% 2%}
+        50%{background-position:100% 99%}
+        100%{background-position:0% 2%}
+    }
+    @-moz-keyframes fade_progress {
+        0%{background-position:0% 2%}
+        50%{background-position:100% 99%}
+        100%{background-position:0% 2%}
+    }
+    @keyframes fade_progress {
+        0%{background-position:0% 2%}
+        50%{background-position:100% 99%}
+        100%{background-position:0% 2%}
+    }
+
+
+
+</style>
+<body>
+
+<div style="position:fixed; top:0px;  width:100%; overflow:hidden; white-space: nowrap; height:15px; z-index: 10; display: flex; background-color: white;"
+     id="progress_box">
+    <div class="progress-bar progress-bar-striped progress-bar-animated" id="progress_bar_box" style="width:0%"></div>
+</div>
+
+<link href='https://fonts.googleapis.com/css?family=Wendy+One' rel='stylesheet' type='text/css'>
+<div style="position:fixed; bottom:0px;  width:100%; overflow:hidden; white-space: nowrap; height:250px; z-index: 10; display: flex;" id="ballons">
+    <div class="balloons_container">
+        <div class="balloon">
+            <div><span>B</span></div>
+            <div><span>R</span></div>
+            <div><span>A</span></div>
+            <div><span>V</span></div>
+            <div><span>O</span></div>
+            <div><span>!</span></div>
+        </div>
+    </div>
+</div>
+
+<div id="word_letter" class="animate-flicker" style="position: absolute; top:40px; left:50px;">3</div>
+
+
+<div id="animation_view"></div>
+
+<audio preload="none" id="media_audio">
+    <source id="media_audio_source" src="" type="audio/mpeg">
+</audio>
+
+<audio preload="none" id="media_audio2">
+    <source id="media_audio2_source" src="" type="audio/mpeg">
+</audio>
+
+</body>
+
+</html>
