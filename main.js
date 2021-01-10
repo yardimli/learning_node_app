@@ -10,7 +10,7 @@ const url = require("url");
 const async = require('async');
 const crypto = require('crypto');
 
-const DownloadManager = require("electron-download-manager");
+// const DownloadManager = require("electron-download-manager");
 
 // const {download} = require("electron-dl");
 
@@ -163,7 +163,7 @@ function createWindow() {
 
 	console.log("download words.json");
 
-	DownloadManager.register({downloadFolder: dataPath});
+	// DownloadManager.register({downloadFolder: dataPath});
 
 
 	download("https://elosoft.tw/picture-dictionary-editor/dictionary/data.php", path.join(dataPath, "words2.json"), function () {
