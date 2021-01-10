@@ -73,7 +73,7 @@ function createWindow() {
 			nativeWindowOpen: true
 		}
 	})
-	win.webContents.openDevTools({mode: 'bottom'})
+	// win.webContents.openDevTools({mode: 'bottom'})
 
 	win.loadFile('index.html')
 
@@ -85,15 +85,15 @@ function createWindow() {
 		Object.assign(options, {
 			// modal: true,
 			parent: win,
-			width: 800,
-			height: 600,
+			width: 1280,
+			height: 800,
 			webPreferences: {
 				nodeIntegration: true,
 				nativeWindowOpen: true
 			}
 		})
 		event.newGuest = new BrowserWindow(options)
-		event.newGuest.webContents.openDevTools({mode: 'bottom'})
+		// event.newGuest.webContents.openDevTools({mode: 'bottom'})
 		// }
 	})
 
