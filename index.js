@@ -1,4 +1,18 @@
+const { ipcRenderer } = require('electron')
+
 $(document).ready(function () {
+
+
+	$("#btn_refrseh_data").on('click',function () {
+		ipcRenderer.send('refresh-data-start', 'ping');
+		$("#data-update-results").html("");
+		$("#data-update-results").show();
+	});
+
+	ipcRenderer.on('refresh-data-updated', (event, arg) => {
+		console.log(arg); // prints "pong"
+		$("#data-update-results").append(arg+"<br>");
+	});
 
 	var LessonCategories = "";
 

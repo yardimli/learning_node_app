@@ -284,26 +284,19 @@ function CreateLesson(GoToNextLetter, ResetKeyboard) {
 
 	}
 
-	var keyboard_url = "/surface_cmd?cmd=keyboard_keys&keys=" + KeyboardLetters + RandomLetters + "&correct_key=" + CorrectKey + "&blink_delay=90000";
-	if (LessonRandom === "full") {
-		keyboard_url = "/surface_cmd?cmd=keyboard_keys&keys=all&correct_key=" + CorrectKey + "&blink_delay=10000";
-	}
-	else if (LessonRandom === "full_inc") {
-		keyboard_url = "/surface_cmd?cmd=keyboard_keys&keys=" + ProgressiveKeys + "&correct_key=" + CorrectKey + "&blink_delay=10000";
-	}
+	setTimeout(function () {
+		init_keyboard();
 
-	//turn keys on for new lesson
-	$.ajax({
-		url: keyboard_url,
-		method: 'get',
-		success: function (data) {
-			if (data.key !== "") {
-				if (data.key === "3") {
-				}
-			}
+		if (LessonRandom === "full") {
+			update_keyboard("all", CorrectKey, 10000);
 		}
-	});
-
+		else if (LessonRandom === "full_inc") {
+			update_keyboard(ProgressiveKeys, CorrectKey, 10000)
+		}
+		else {
+			update_keyboard(KeyboardLetters + RandomLetters, CorrectKey, 90000)
+		}
+	}, 1000);
 }
 
 function CorrectAnswer() {
@@ -448,28 +441,35 @@ $(document).ready(function () {
 	KeyboardPath = KeyboardPath.replace(/\_\_/g, "&");
 	KeyboardPath = KeyboardPath.replace(/\-\-\-/g, "?");
 
-	$("#bottom-half").load( "../../" + KeyboardPath );
+
+	$.ajax({
+		url: "../../" + KeyboardPath,
+		success: function (data, status, jqXHR) {
+
+			var dom = $(data);
+
+			dom.filter('script').each(function () {
+				if (this.src) {
+					var script = document.createElement('script'), i, attrName, attrValue, attrs = this.attributes;
+					for (i = 0; i < attrs.length; i++) {
+						attrName = attrs[i].name;
+						attrValue = attrs[i].value;
+						script[attrName] = attrValue;
+					}
+					document.body.appendChild(script);
+				}
+				else {
+					$.globalEval(this.text || this.textContent || this.innerHTML || '');
+				}
+			});
+
+			$("#bottom-half").html(data);
+		}
+	});
 
 	if (getParameterByName("nozoom") === "yes") {
 		nozoom = true;
 	}
-
-	// addEventListener("click", function () {
-	// 	if (getParameterByName("nozoom") === "yes") {
-	// 		nozoom = true;
-	//
-	// 	}
-	// 	else {
-	// 		var
-	// 			el = document.documentElement
-	// 			, rfs =
-	// 			el.requestFullScreen
-	// 			|| el.webkitRequestFullScreen
-	// 			|| el.mozRequestFullScreen
-	// 		;
-	// 		rfs.call(el);
-	// 	}
-	// });
 
 	if (!WordHints) {
 		$("#word_letter").hide();
@@ -478,115 +478,94 @@ $(document).ready(function () {
 
 	LoadWords();
 
-	if (1 === 2) {
-		setInterval(function () {
+	document.addEventListener("virtual-keyboard-press", function (event) {
+		if (event.detail.key !== "" && LessonInProgress) {
 
-			$.ajax({
-				url: "/surface_cmd?cmd=what_key",
-				method: 'get',
-				success: function (data) {
-
-					if (data.key !== "" && LessonInProgress) {
-
-						console.log("clear timeouts");
-						clearTimeout(Timer1);
-						clearTimeout(Timer2);
+			console.log("clear timeouts");
+			clearTimeout(Timer1);
+			clearTimeout(Timer2);
 
 
-						if (LessonRandom === "full" || LessonRandom === "full_inc") {
-						}
-						else {
-							//turn off all keys
-							$.ajax({
-								url: "/surface_cmd?cmd=keyboard_keys&keys=",
-								method: 'get',
-								success: function (data) {
-								}
-							});
-						}
+			if (LessonRandom === "full" || LessonRandom === "full_inc") {
+			}
+			else {
+				//turn off all keys
+			}
 
-						console.log(data.key + " " + CorrectKey);
-						if (data.key == CorrectKey) {
-							if (LessonRandom === "random_eliminate" && RandomLetters === "") {
-								WrongCount = 0;
-							}
-							CorrectAnswer();
-						}
-						else {
-							WrongCount++;
-
-							$("#letters_span span:first").html(data.key);
-							$("#letters_span span:first").addClass("fadein_letter");
-
-							Timer1 = setTimeout(function () {
-								if (LessonRandom === "full" || LessonRandom === "full_inc") {
-									play_sound("../../audio/wrong-sound/yanlis-" + Math.floor((Math.random() * 10) + 6) + ".mp3", "media_audio2");
-								}
-								else {
-									play_sound("../../audio/wrong-sound/yanlis-" + Math.floor((Math.random() * 16) + 1) + ".mp3", "media_audio2");
-
-								}
-							}, 1500);
-
-
-							if (LessonRandom === "random_many_az") {
-								RandomLetters = RandomLetters.replace(data.key, "");
-								Timer2 = setTimeout(function () {
-									CreateLesson(false, false);
-								}, 4000);
-							}
-							else if (LessonRandom === "full" || LessonRandom === "full_inc") {
-
-
-								Timer2 = setTimeout(function () {
-									$("#letters_span span:first").removeClass("fadein_letter");
-									play_sound(WordAudio, "media_audio");
-									play_sound(WordVideo, "media_video");
-								}, 4000);
-
-							}
-							else {
-
-								setTimeout(function () {
-									play_sound(WordAudio, "media_audio");
-									play_sound(WordVideo, "media_video");
-									$("#letters_span span:first").removeClass("fadein_letter");
-
-
-									KeyboardLetters = LessonLetters;
-									if (LessonRandom === "singleletter" || LessonRandom === "random_one" || LessonRandom === "random_two" || LessonRandom === "random_three" || LessonRandom === "random_many" || LessonRandom === "random_many_az" || LessonRandom === "random_eliminate") {
-										KeyboardLetters = CorrectKey;
-									}
-
-									RandomLetters = RandomLetters.replace(data.key, "");
-									if (WrongCount >= 2 && LessonRandom !== "random_eliminate" && LessonRandom !== "random_many_az") {
-										RandomLetters = "";
-									}
-
-									var keyboard_url = "/surface_cmd?cmd=keyboard_keys&keys=" + KeyboardLetters + RandomLetters + "&correct_key=" + CorrectKey + "&blink_delay=100000";
-									if (LessonRandom === "full") {
-										keyboard_url = "/surface_cmd?cmd=keyboard_keys&keys=all&correct_key=" + CorrectKey + "&blink_delay=30000";
-									}
-									else if (LessonRandom === "full_inc") {
-										keyboard_url = "/surface_cmd?cmd=keyboard_keys&keys=" + ProgressiveKeys + "&correct_key=" + CorrectKey + "&blink_delay=30000";
-									}
-
-									//turn keys back on
-									$.ajax({
-										url: keyboard_url,
-										method: 'get',
-										success: function (data) {
-										}
-									});
-
-								}, 4000);
-							}
-
-						}
-					}
+			console.log(event.detail.key + " " + CorrectKey);
+			if (event.detail.key == CorrectKey) {
+				if (LessonRandom === "random_eliminate" && RandomLetters === "") {
+					WrongCount = 0;
 				}
-			});
+				CorrectAnswer();
+			}
+			else {
+				WrongCount++;
 
-		}, 100);
-	}
+				$("#letters_span span:first").html(event.detail.key);
+				$("#letters_span span:first").addClass("fadein_letter");
+
+				Timer1 = setTimeout(function () {
+					if (LessonRandom === "full" || LessonRandom === "full_inc") {
+						play_sound("../../audio/wrong-sound/yanlis-" + Math.floor((Math.random() * 10) + 6) + ".mp3", "media_audio2");
+					}
+					else {
+						play_sound("../../audio/wrong-sound/yanlis-" + Math.floor((Math.random() * 16) + 1) + ".mp3", "media_audio2");
+
+					}
+				}, 1500);
+
+
+				if (LessonRandom === "random_many_az") {
+					RandomLetters = RandomLetters.replace(event.detail.key, "");
+					Timer2 = setTimeout(function () {
+						CreateLesson(false, false);
+					}, 4000);
+				}
+				else if (LessonRandom === "full" || LessonRandom === "full_inc") {
+
+
+					Timer2 = setTimeout(function () {
+						$("#letters_span span:first").removeClass("fadein_letter");
+						play_sound(WordAudio, "media_audio");
+						play_sound(WordVideo, "media_video");
+					}, 4000);
+
+				}
+				else {
+
+					setTimeout(function () {
+						play_sound(WordAudio, "media_audio");
+						play_sound(WordVideo, "media_video");
+						$("#letters_span span:first").removeClass("fadein_letter");
+
+
+						KeyboardLetters = LessonLetters;
+						if (LessonRandom === "singleletter" || LessonRandom === "random_one" || LessonRandom === "random_two" || LessonRandom === "random_three" || LessonRandom === "random_many" || LessonRandom === "random_many_az" || LessonRandom === "random_eliminate") {
+							KeyboardLetters = CorrectKey;
+						}
+
+						RandomLetters = RandomLetters.replace(event.detail.key, "");
+						if (WrongCount >= 2 && LessonRandom !== "random_eliminate" && LessonRandom !== "random_many_az") {
+							RandomLetters = "";
+						}
+
+						if (LessonRandom === "full") {
+							update_keyboard("all", CorrectKey, 30000);
+						}
+						else if (LessonRandom === "full_inc") {
+							update_keyboard(ProgressiveKeys, CorrectKey, 30000);
+						}
+						else {
+							update_keyboard(KeyboardLetters + RandomLetters, CorrectKey, 100000);
+						}
+
+						//------------call key--------
+
+					}, 4000);
+				}
+
+			}
+		}
+	});
 });
