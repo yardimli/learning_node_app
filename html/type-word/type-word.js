@@ -171,6 +171,7 @@ function CorrectAnswer(InputKey) {
 	if (CorrectKey === InputKey) {
 		update_keyboard("", "1", 10000);
 		$("#WordsForLesson").append(CorrectKey);
+		console.log( LessonStringPos + " === "+(LessonString.length - 1)+" --"+LessonString+"---");
 
 		if (LessonStringPos === LessonString.length - 1) { //last letter of the word
 			Timeout2 = setTimeout(function () {
@@ -267,6 +268,9 @@ $(document).ready(function () {
 			else if (AllWordsData[i].bopomofo !== "" && AllWordsData[i].bopomofo !== null && LessonLanguage === "ch") {
 				// console.log(AllWordsData[i]);
 				var wordX = AllWordsData[i].bopomofo;
+				wordX = wordX.replace(" ", "");
+				wordX = wordX.replace(" ", "");
+				wordX = wordX.replace(" ", "");
 				wordX = wordX.replace(" ", "");
 
 				AlfaWords.push({
