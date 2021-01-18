@@ -1,13 +1,10 @@
 [
   {
     "id": "1000",
-    "need_keyboard" : "yes",
     "name": "Harfler Seviye 2",
     "description": "Sözcükleri ve Harfleri Resimler ile Öğrenmek",
     "picture": "./lesson_pictures/Alphabet2.jpg",
     "screen_path": "./html/alfabe/index_seviye_2.html?",
-    "keyboard_path": "./html/keyboard/index.html?",
-    "mini_keyboard_path": "./html/keyboard/mini_tr_keyboard.html?",
     "checkboxes_query": "letters",
     "checkboxes": [
       {
@@ -239,9 +236,6 @@
     "description": "Memory Game",
     "picture": "./lesson_pictures/memory-oyunu-big.jpg",
     "screen_path": "./html/memory-game/index.html?",
-    "keyboard_path": "./html/keyboard/index.html?",
-    "mini_keyboard_path": "./html/keyboard/mini_tr_keyboard.html?",
-    "need_keyboard" : "no",
     "checkboxes_query": "scoring",
     "checkboxes": [
       {
@@ -277,9 +271,6 @@
     "description": "Flash Kart Oyunu",
     "picture": "./lesson_pictures/flash_cards.jpg",
     "screen_path": "./html/flash-cards/index.html?",
-    "keyboard_path": "./html/keyboard/index.html?",
-    "mini_keyboard_path": "./html/keyboard/mini_tr_keyboard.html?",
-    "need_keyboard" : "no",
     "checkboxes_query": "scoring",
     "checkboxes": [
       {
@@ -355,9 +346,6 @@
     "description": "Karsitlar",
     "picture": "./lesson_pictures/opposites.png",
     "screen_path": "./html/opposites/index.html?",
-    "keyboard_path": "./html/keyboard/index.html?",
-    "mini_keyboard_path": "./html/keyboard/mini_tr_keyboard.html?",
-    "need_keyboard" : "no",
     "checkboxes_query": "scoring",
     "checkboxes": [
       {
@@ -394,9 +382,6 @@
     "description": "Type Letters",
     "picture": "./lesson_pictures/falling-letters.gif",
     "screen_path": "./html/type-word/index.html?",
-    "keyboard_path": "./html/keyboard/index.html?",
-    "mini_keyboard_path": "./html/keyboard/mini_tw_keyboard.html?",
-    "need_keyboard" : "yes",
     "checkboxes_query": "scoring",
     "checkboxes": [
       {
@@ -439,9 +424,6 @@
     "description": "Type Letters",
     "picture": "./lesson_pictures/falling-letters.gif",
     "screen_path": "./html/type-word/index.html?",
-    "keyboard_path": "./html/keyboard/index.html?",
-    "mini_keyboard_path": "./html/keyboard/mini_en_keyboard.html?",
-    "need_keyboard" : "yes",
     "checkboxes_query": "scoring",
     "checkboxes": [
       {
@@ -484,9 +466,6 @@
     "description": "Type Letters",
     "picture": "./lesson_pictures/falling-letters.gif",
     "screen_path": "./html/type-word/index.html?",
-    "keyboard_path": "./html/keyboard/index.html?",
-    "mini_keyboard_path": "./html/keyboard/mini_tr_keyboard.html?",
-    "need_keyboard" : "yes",
     "checkboxes_query": "scoring",
     "checkboxes": [
       {
@@ -529,9 +508,6 @@
     "description": "Learn numbers with spinning fans",
     "picture": "./lesson_pictures/1.png",
     "screen_path": "./html/fans/index.html?l=tr&",
-    "keyboard_path": "./html/keyboard/index.html?",
-    "mini_keyboard_path": "./html/keyboard/mini_tr_keyboard.html?",
-    "need_keyboard" : "yes",
     "checkboxes_query": "hints",
     "checkboxes": [
       {
@@ -612,9 +588,6 @@
     "description": "Learn numbers with spinning fans",
     "picture": "./lesson_pictures/1.png",
     "screen_path": "./html/fans/index.html?l=ch&",
-    "keyboard_path": "./html/keyboard/index.html?",
-    "mini_keyboard_path": "./html/keyboard/mini_tw_keyboard.html?",
-    "need_keyboard" : "yes",
     "checkboxes_query": "hints",
     "checkboxes": [
       {

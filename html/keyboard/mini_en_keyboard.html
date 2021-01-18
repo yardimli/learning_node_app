@@ -1,19 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<!-- Basic Page Needs
-–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-	<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';"/>
-	<meta charset="utf-8">
-	<title>TalkingKeyboard</title>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--	&lt;!&ndash; Basic Page Needs-->
+<!--–––––––––––––––––––––––––––––––––––––––––––––––––– &ndash;&gt;-->
+<!--	<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';"/>-->
+<!--	<meta charset="utf-8">-->
+<!--	<title>TalkingKeyboard</title>-->
 
-	<!-- Mobile Specific Metas
-	–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--	&lt;!&ndash; Mobile Specific Metas-->
+<!--	–––––––––––––––––––––––––––––––––––––––––––––––––– &ndash;&gt;-->
+<!--	<meta name="viewport" content="width=device-width, initial-scale=1">-->
 
 	<!-- FONT
 	–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-	<link href='//fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 
 	<!-- CSS
 	–––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -22,30 +22,30 @@
 	<link rel="stylesheet" href="../css/custom_tr.css">
 
 
-	<script>
-		const {ipcRenderer} = require('electron');
-	</script>
+<!--	<script>-->
+<!--		const {ipcRenderer} = require('electron');-->
+<!--	</script>-->
 
-	<!-- Insert this line above script imports  -->
-	<script>if (typeof module === 'object') {
-		window.module = module;
-		module = undefined;
-	}</script>
+<!--	&lt;!&ndash; Insert this line above script imports  &ndash;&gt;-->
+<!--	<script>if (typeof module === 'object') {-->
+<!--		window.module = module;-->
+<!--		module = undefined;-->
+<!--	}</script>-->
 
 
 	<!-- Scripts
 	–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-	<script src="../js/jquery.min.js"></script>
-	<script src="talking_keyboard.js"></script>
+<!--	<script src="../js/jquery.min.js"></script>-->
+	<script src="../keyboard/talking_keyboard.js"></script>
 
-	<!-- Insert this line after script imports -->
-	<script>if (window.module) module = window.module;</script>
+<!--	&lt;!&ndash; Insert this line after script imports &ndash;&gt;-->
+<!--	<script>if (window.module) module = window.module;</script>-->
 
-</head>
-<script language="JavaScript">
-	document.oncontextmenu =new Function("return false;")
-</script>
-<body onselectstart="return false">
+<!--</head>-->
+<!--<script language="JavaScript">-->
+<!--	document.oncontextmenu =new Function("return false;")-->
+<!--</script>-->
+<!--<body onselectstart="return false">-->
 
 <div class="container">
 	<!-- '&nbsp' is used as a placeholder to maintain the header's non-empty position. -->
@@ -136,9 +136,9 @@
 
 </div>
 
-<audio preload="none" id="media_audio">
-	<source id="media_audio_source" src="" type="audio/mpeg">
-</audio>
+<!--<audio preload="none" id="media_audio">-->
+<!--	<source id="media_audio_source" src="" type="audio/mpeg">-->
+<!--</audio>-->
 
-</body>
-</html>
+<!--</body>-->
+<!--</html>-->

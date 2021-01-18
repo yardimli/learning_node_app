@@ -1,9 +1,9 @@
-const { ipcRenderer } = require('electron')
+const {ipcRenderer} = require('electron')
 
 $(document).ready(function () {
 
 
-	$("#btn_refrseh_data").on('click',function () {
+	$("#btn_refrseh_data").on('click', function () {
 		ipcRenderer.send('refresh-data-start', 'ping');
 		$("#data-update-results").html("");
 		$("#data-update-results").show();
@@ -11,22 +11,23 @@ $(document).ready(function () {
 
 	ipcRenderer.on('refresh-data-updated', (event, arg) => {
 		console.log(arg); // prints "pong"
-		$("#data-update-results").append(arg+"<br>");
+		$("#data-update-results").append(arg + "<br>");
 	});
 
 	var LessonCategories = "";
 
 	let tree = $('.js-dropdown-tree');
+
 	// generate tree from array of objects
 	function generateTree(arr, listItem) {
 		listItem.append('<ul></ul>');
 		for (let i = 0; i < arr.length; i++) {
-			if (arr[i].children !== undefined && arr[i].children.length>0) {
-				listItem.children('ul').append('<li><div class="dropdown-tree__item" data-catid="'+arr[i].id+'"><span class="dropdown-tree__item-line"></span>' + arr[i].name + '</div></li>');
+			if (arr[i].children !== undefined && arr[i].children.length > 0) {
+				listItem.children('ul').append('<li><div class="dropdown-tree__item" data-catid="' + arr[i].id + '"><span class="dropdown-tree__item-line"></span>' + arr[i].name + '</div></li>');
 				generateTree(arr[i].children, listItem.children('ul').children('li').eq(i));
 			}
 			else {
-				listItem.children('ul').append('<li><div class="dropdown-tree__item" data-catid="'+arr[i].id+'"><span class="dropdown-tree__item-line"></span>' + arr[i].name + '</div></li>');
+				listItem.children('ul').append('<li><div class="dropdown-tree__item" data-catid="' + arr[i].id + '"><span class="dropdown-tree__item-line"></span>' + arr[i].name + '</div></li>');
 			}
 		}
 	}
@@ -152,16 +153,16 @@ $(document).ready(function () {
 	const sort_by = (field, reverse, primer) => {
 
 		const key = primer ?
-			function(x) {
+			function (x) {
 				return primer(x[field])
 			} :
-			function(x) {
+			function (x) {
 				return x[field]
 			};
 
 		reverse = !reverse ? 1 : -1;
 
-		return function(a, b) {
+		return function (a, b) {
 			return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
 		}
 	}
@@ -179,7 +180,8 @@ $(document).ready(function () {
 			if (node.parentID !== "0") {
 				// if you have dangling branches check that map[node.parentId] exists
 				list[map[node.parentID]].children.push(node);
-			} else {
+			}
+			else {
 				roots.push(node);
 			}
 		}
@@ -196,7 +198,7 @@ $(document).ready(function () {
 			},
 			success: function (data) {
 
-				data.sort(sort_by('fullpath', false, (a) =>  a.toUpperCase() ) );
+				data.sort(sort_by('fullpath', false, (a) => a.toUpperCase()));
 
 				// console.log(data);
 				// console.log( list_to_tree(data) );
@@ -240,7 +242,7 @@ $(document).ready(function () {
 			for (var i = 0; i < data.length; i++) {
 				console.log(data[i]);
 
-				var LessonBox = `<div class="col-lg-6 col-md-6 mb-4" id="lesson_${data[i].id}" data-screen_path="${data[i].screen_path}"  data-keyboard_path="${data[i].keyboard_path}" data-mini_keyboard_path="${data[i].mini_keyboard_path}" data-checkboxes_query="${data[i].checkboxes_query}">
+				var LessonBox = `<div class="col-lg-6 col-md-6 mb-4" id="lesson_${data[i].id}" data-screen_path="${data[i].screen_path}"  data-checkboxes_query="${data[i].checkboxes_query}">
               <div class="card h-100">
               <div class="card-img-top" style="max-height:200px;" >
                 <img src="${data[i].picture}" alt="" style="max-height: 200px">
@@ -262,21 +264,10 @@ $(document).ready(function () {
                   </div>
                   <div class="card-footer">`;
 
-				if (data[i].need_keyboard === "yes") {
-
-					LessonBox += `<span class="btn btn-primary split_screen_button" data-lesson_id="lesson_${data[i].id}" style="cursor:pointer;">Split</span>
-                    <span class="btn btn-primary screen_button" data-lesson_id="lesson_${data[i].id}" style="cursor: pointer;">Screen</span>
-                    <span class="btn btn-primary keyboard_button" data-lesson_id="lesson_${data[i].id}" style="cursor:pointer;">Keyboard</span>
+				LessonBox += `<span class="btn btn-primary screen_button" data-lesson_id="lesson_${data[i].id}" style="cursor: pointer;">Screen</span>
                   </div>
                 </div>
               </div>`;
-				}
-				else {
-					LessonBox += `<span class="btn btn-primary screen_button" data-lesson_id="lesson_${data[i].id}" style="cursor: pointer;">Screen</span>
-                  </div>
-                </div>
-              </div>`;
-				}
 
 
 				$("#lessons_row").append(LessonBox);
@@ -379,138 +370,8 @@ $(document).ready(function () {
 					QueryExtra += "category=" + LessonCategories;
 
 					var ScreenPath = $("#" + $(this).data("lesson_id")).data("screen_path");
-					var KeyboardPath = $("#" + $(this).data("lesson_id")).data("keyboard_path");
 					window.open(ScreenPath + QueryExtra, '_blank', 'nodeIntegration=yes');
 				});
-
-				$(".keyboard_button").off('click').on("click", function () {
-					var CheckBoxQuery = "";
-					var HasCheckBox = false;
-					if ($("#" + $(this).data("lesson_id")).data("checkboxes_query") !== "undefined") {
-						CheckBoxQuery = $("#" + $(this).data("lesson_id")).data("checkboxes_query") + "=";
-						$("input:checkbox.checkbox_" + $(this).data("lesson_id")).each(function () {
-							console.log(this.checked ? $(this).val() : "");
-							CheckBoxQuery += (this.checked ? $(this).val() : "");
-							HasCheckBox = true;
-						});
-					}
-
-					var QueryExtra = "";
-					if (HasCheckBox) {
-						QueryExtra = CheckBoxQuery;
-					}
-
-					var DropDownQuery = $("#select_" + $(this).data("lesson_id")).find(":selected").data("query");
-					var DropDownValue = $("#select_" + $(this).data("lesson_id")).find(":selected").data("value");
-
-					if (typeof DropDownQuery !== "undefined") {
-						if (QueryExtra !== "") {
-							QueryExtra += "&";
-						}
-						QueryExtra += DropDownQuery + "=" + DropDownValue;
-					}
-
-					var DropDownQuery = $("#options_" + $(this).data("lesson_id")).find(":selected").data("query");
-					var DropDownValue = $("#options_" + $(this).data("lesson_id")).find(":selected").data("value");
-
-					if (typeof DropDownQuery !== "undefined") {
-						if (QueryExtra !== "") {
-							QueryExtra += "&";
-						}
-						QueryExtra += DropDownQuery + "=" + DropDownValue;
-					}
-
-					var DropDownQuery = $("#options2_" + $(this).data("lesson_id")).find(":selected").data("query");
-					var DropDownValue = $("#options2_" + $(this).data("lesson_id")).find(":selected").data("value");
-
-					if (typeof DropDownQuery !== "undefined") {
-						if (QueryExtra !== "") {
-							QueryExtra += "&";
-						}
-						QueryExtra += DropDownQuery + "=" + DropDownValue;
-					}
-
-					if (QueryExtra !== "") {
-						QueryExtra += "&";
-					}
-					QueryExtra += "category=" + LessonCategories;
-
-
-					var ScreenPath = $("#" + $(this).data("lesson_id")).data("screen_path");
-					var KeyboardPath = $("#" + $(this).data("lesson_id")).data("keyboard_path");
-					window.open(KeyboardPath + QueryExtra, '_blank', 'nodeIntegration=yes');
-				});
-
-
-				$(".split_screen_button").off('click').on("click", function () {
-					var CheckBoxQuery = "";
-					var HasCheckBox = false;
-					if ($("#" + $(this).data("lesson_id")).data("checkboxes_query") !== "undefined") {
-						CheckBoxQuery = $("#" + $(this).data("lesson_id")).data("checkboxes_query") + "=";
-						$("input:checkbox.checkbox_" + $(this).data("lesson_id")).each(function () {
-							console.log(this.checked ? $(this).val() : "");
-							CheckBoxQuery += (this.checked ? $(this).val() : "");
-							HasCheckBox = true;
-						});
-					}
-
-					var QueryExtra = "";
-					if (HasCheckBox) {
-						QueryExtra = CheckBoxQuery;
-					}
-
-					var DropDownQuery = $("#select_" + $(this).data("lesson_id")).find(":selected").data("query");
-					var DropDownValue = $("#select_" + $(this).data("lesson_id")).find(":selected").data("value");
-
-					if (typeof DropDownQuery !== "undefined") {
-						if (QueryExtra !== "") {
-							QueryExtra += "&";
-						}
-						QueryExtra += DropDownQuery + "=" + DropDownValue;
-					}
-
-					var DropDownQuery = $("#options_" + $(this).data("lesson_id")).find(":selected").data("query");
-					var DropDownValue = $("#options_" + $(this).data("lesson_id")).find(":selected").data("value");
-
-					if (typeof DropDownQuery !== "undefined") {
-						if (QueryExtra !== "") {
-							QueryExtra += "&";
-						}
-						QueryExtra += DropDownQuery + "=" + DropDownValue;
-					}
-
-					var DropDownQuery = $("#options2_" + $(this).data("lesson_id")).find(":selected").data("query");
-					var DropDownValue = $("#options2_" + $(this).data("lesson_id")).find(":selected").data("value");
-
-					if (typeof DropDownQuery !== "undefined") {
-						if (QueryExtra !== "") {
-							QueryExtra += "&";
-						}
-						QueryExtra += DropDownQuery + "=" + DropDownValue;
-					}
-
-					if (QueryExtra !== "") {
-						QueryExtra += "&";
-					}
-					QueryExtra += "category=" + LessonCategories;
-
-
-					var ScreenPath = $("#" + $(this).data("lesson_id")).data("screen_path") + QueryExtra;
-					var KeyboardPath = $("#" + $(this).data("lesson_id")).data("mini_keyboard_path") + QueryExtra;
-
-					// ScreenPath = ScreenPath.replace(/\=/g, "___");
-					// ScreenPath = ScreenPath.replace(/\&/g, "__");
-					// ScreenPath = ScreenPath.replace(/\?/g, "---");
-
-					KeyboardPath = KeyboardPath.replace(/\=/g, "___");
-					KeyboardPath = KeyboardPath.replace(/\&/g, "__");
-					KeyboardPath = KeyboardPath.replace(/\?/g, "---");
-
-					window.open(ScreenPath + QueryExtra + "&keyboard="+KeyboardPath, '_blank', 'nodeIntegration=yes');
-
-					// window.open("split_screen.html?screen=" + ScreenPath + "&keyboard=" + KeyboardPath, '_blank', 'nodeIntegration=yes');
-				});
-
 			}
 		}
 

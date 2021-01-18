@@ -436,14 +436,8 @@ function LoadWords() {
 $(document).ready(function () {
 	$("#ballons").hide();
 
-	var KeyboardPath = getParameterByName("keyboard");
-	KeyboardPath = KeyboardPath.replace(/\_\_\_/g, "=");
-	KeyboardPath = KeyboardPath.replace(/\_\_/g, "&");
-	KeyboardPath = KeyboardPath.replace(/\-\-\-/g, "?");
-
-
 	$.ajax({
-		url: "../../" + KeyboardPath,
+		url: "../keyboard/mini_tr_keyboard.html",
 		success: function (data, status, jqXHR) {
 
 			var dom = $(data);
