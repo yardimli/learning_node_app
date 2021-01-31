@@ -272,12 +272,21 @@ $(document).ready(function () {
 				wordX = wordX.replace(" ", "");
 				wordX = wordX.replace(" ", "");
 				wordX = wordX.replace(" ", "");
+				wordX = wordX.replace(" ", "");
+				wordX = wordX.replace(":", "");
+				wordX = wordX.replace("一","ㄧ");
+
+				// ㄧ in keyboard E3 84 A7
+				// 一 from dictionary E4 B8 80
+				var bopomofoX = AllWordsData[i].bopomofo;
+				bopomofoX = bopomofoX.replace("一","ㄧ");
+				bopomofoX = bopomofoX.replace(":", "");
 
 				AlfaWords.push({
 					"word": wordX,
 					"word_CH": AllWordsData[i].word_CH,
 					"pinyin": AllWordsData[i].pinyin,
-					"bopomofo": AllWordsData[i].bopomofo,
+					"bopomofo": bopomofoX,
 					"image": AllWordsData[i].picture,
 					"audio": AllWordsData[i].audio_CH
 				});
