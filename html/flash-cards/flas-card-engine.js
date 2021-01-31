@@ -743,25 +743,30 @@ function InitLesson() {
 $(document).ready(function () {
 	AllWordsData = JSON.parse(ipcRenderer.sendSync('get-all-words', ''));
 
-	for (var i = 0; i < AllWordsData.length; i++) {
-		if (LessonCategory.indexOf("-" + AllWordsData[i].categoryID + "-") !== -1) {
-			if (AllWordsData[i].word_TR !== "" && AllWordsData[i].word_TR !== null && LessonLanguage === "tr") {
-				// console.log(AllWordsData[i]);
-				AlfaWords.push({"word": AllWordsData[i].word_TR, "image": AllWordsData[i].picture, "audio": AllWordsData[i].audio_TR});
-			}
+	while (AlfaWords.length<(LessonLength+1)) {
+		for (var i = 0; i < AllWordsData.length; i++) {
+			if (LessonCategory.indexOf("-" + AllWordsData[i].categoryID + "-") !== -1) {
+				if (AllWordsData[i].word_TR !== "" && AllWordsData[i].word_TR !== null && LessonLanguage === "tr") {
+					// console.log(AllWordsData[i]);
+					AlfaWords.push({"word": AllWordsData[i].word_TR, "image": AllWordsData[i].picture, "audio": AllWordsData[i].audio_TR});
+				}
 
-			if (AllWordsData[i].word_EN !== "" && AllWordsData[i].word_EN !== null && LessonLanguage === "en") {
-				AlfaWords.push({"word": AllWordsData[i].word_EN, "image": AllWordsData[i].picture, "audio": AllWordsData[i].audio_EN});
-			}
-			if (AllWordsData[i].word_CH !== "" && AllWordsData[i].word_CH !== null && LessonLanguage === "ch") {
-				// console.log(AllWordsData[i]);
-				AlfaWords.push({
-					"word": AllWordsData[i].word_CH,
-					"pinyin": AllWordsData[i].pinyin,
-					"bopomofo": AllWordsData[i].bopomofo,
-					"image": AllWordsData[i].picture,
-					"audio": AllWordsData[i].audio_CH
-				});
+				if (AllWordsData[i].word_EN !== "" && AllWordsData[i].word_EN !== null && LessonLanguage === "en") {
+					AlfaWords.push({"word": AllWordsData[i].word_EN, "image": AllWordsData[i].picture, "audio": AllWordsData[i].audio_EN});
+				}
+				if (AllWordsData[i].word_CH !== "" && AllWordsData[i].word_CH !== null && LessonLanguage === "ch") {
+					// console.log(AllWordsData[i]);
+					AlfaWords.push({
+						"word": AllWordsData[i].word_CH,
+						"pinyin": AllWordsData[i].pinyin,
+						"bopomofo": AllWordsData[i].bopomofo,
+						"image": AllWordsData[i].picture,
+						"audio": AllWordsData[i].audio_CH
+					});
+				}
+				if (AlfaWords.length>=(LessonLength+1)) {
+					break;
+				}
 			}
 		}
 	}
