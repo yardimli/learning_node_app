@@ -26,19 +26,10 @@ var media_audio2_playing = false;
 var AllWordsData;
 var AlfaWords = [];
 
-function getParameterByName(name, url) {
-	if (!url) url = window.location.href;
-	name = name.replace(/[\[\]]/g, '\\$&');
-	var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-		results = regex.exec(url);
-	if (!results) return null;
-	if (!results[2]) return '';
-	return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
-
-var LessonLength = parseInt(getParameterByName("word_count"), 10);
-var LessonLanguage = getParameterByName("language");
-var LessonCategory = getParameterByName("category");
+var LessonParameters;
+var LessonLength;
+var LessonLanguage;
+var LessonCategory;
 
 function getRandomColor() {
 	var letters = '0123456789ABCDEF';
@@ -365,11 +356,10 @@ function CreateWordBoard() {
 
 	var RandomWordChoices = 0;
 	for (var iii = 0; iii < 1000; iii++) {
-		ii = Math.round(Math.random() * AlfaWords.length);
+		var ii = Math.round(Math.random() * AlfaWords.length);
 		if (ii > 0) {
 			ii--;
 		}
-
 
 		var WordX = AlfaWords[ii].word;
 
@@ -458,17 +448,6 @@ function shuffle(a) {
 	return a;
 }
 
-
-function getParameterByName(name, url) {
-	if (!url) url = window.location.href;
-	name = name.replace(/[\[\]]/g, '\\$&');
-	var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-		results = regex.exec(url);
-	if (!results) return null;
-	if (!results[2]) return '';
-	return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
-
 function shuffleArray(array) {
 	var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -488,12 +467,6 @@ function shuffleArray(array) {
 	return array;
 }
 
-
-var WordHints = getParameterByName("hints") === "yes";
-var LessonRandom = getParameterByName("random");
-var LessonLetters = getParameterByName("letters");
-
-var AlphabeticOrder = getParameterByName("hints") === "alpha_order";
 
 var _listener = function (playerid) {
 
@@ -741,7 +714,13 @@ function InitLesson() {
 }
 
 $(document).ready(function () {
-	AllWordsData = JSON.parse(ipcRenderer.sendSync('get-all-words', ''));
+	LessonParameters = window.sendSyncCmd('get-lesson-parameters', '');
+
+	LessonLength =  parseInt(LessonParameters["word_count"], 10);
+	LessonLanguage = LessonParameters["language"];
+	LessonCategory = LessonParameters["category"];
+
+	AllWordsData = JSON.parse(window.sendSyncCmd('get-all-words', ''));
 
 	while (AlfaWords.length<(LessonLength+1)) {
 		for (var i = 0; i < AllWordsData.length; i++) {

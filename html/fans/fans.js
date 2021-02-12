@@ -2,7 +2,6 @@ var fan_animations = [];
 var CorrectKey = "";
 var fan_1_anime = 1;
 var StartAnimation = false;
-var MaxFans = 3;
 
 var LessonProgress = 0;
 var LessonInProgress = false;
@@ -14,19 +13,13 @@ var nozoom = false;
 var key_string = "";
 
 
-function getParameterByName(name, url) {
-  if (!url) url = window.location.href;
-  name = name.replace(/[\[\]]/g, '\\$&');
-  var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-    results = regex.exec(url);
-  if (!results) return null;
-  if (!results[2]) return '';
-  return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
+var LessonParameters;
+var LessonLanguage;
+var LessonLength;
+var MaxFans;
+var WordHints;
+var RandomType;
 
-var LessonLength = parseInt(getParameterByName("length"), 10);
-
-var WordHints = getParameterByName("hints") === "yes";
 
 function play_sound(mp3,playerid) {
   var AudioSrc = mp3;
@@ -140,11 +133,15 @@ function CreateLesson() {
 
   var NumberOfFans = RandomList[LessonProgress - 1];
 
-  if (getParameterByName("l") === "tr") {
+  if (LessonLanguage === "tr") {
     play_sound("/audio/letters/tr/Default_" + RandomList[LessonProgress - 1] + ".wav","media_audio");
   }
 
-  if (getParameterByName("l") === "ch") {
+  if (LessonLanguage === "en") {
+    play_sound("/audio/letters/en/" + RandomList[LessonProgress - 1] + ".mp3","media_audio");
+  }
+
+  if (LessonLanguage === "ch") {
     play_sound("/audio/letters/ch/number_" + RandomList[LessonProgress - 1] + "_ch.mp3","media_audio");
   }
 
@@ -170,12 +167,12 @@ function CreateLesson() {
       j++;
       random_x = Math.floor(Math.random() * 900) + 50;
 
-      if (nozoom) {
-        random_y = Math.floor(Math.random() * 100) + 10;
-      }
-      else {
-        random_y = Math.floor(Math.random() * 300) + 50;
-      }
+      // if (nozoom) {
+        random_y = Math.floor(Math.random() * 10) + 10;
+      // }
+      // else {
+      //   random_y = Math.floor(Math.random() * 300) + 50;
+      // }
 
       break_loop = true;
       for (let k = 0; k < fan_list.length; k++) {
@@ -193,7 +190,6 @@ function CreateLesson() {
     addFan((i + 1), random_x, random_y, fan_width, true, false);
   }
 
-  var RandomType = getParameterByName("random");
 
   if (RandomType === "sequential") {
     key_string = "";
@@ -238,28 +234,28 @@ function CreateLesson() {
 
   }
 
-  CorrectKey = NumberOfFans + "";
-  $.ajax({
-    url: "/surface_cmd?cmd=keyboard_keys&keys=" + key_string,
-    method: 'get',
-    success: function (data) {
-      console.log("---");
-      console.log(data);
-    }
-  });
+  // CorrectKey = NumberOfFans + "";
+  // $.ajax({
+  //   url: "/surface_cmd?cmd=keyboard_keys&keys=" + key_string,
+  //   method: 'get',
+  //   success: function (data) {
+  //     console.log("---");
+  //     console.log(data);
+  //   }
+  // });
 
 }
 
 function CorrectAnswer() {
 
-  $.ajax({
-    url: "/surface_cmd?cmd=keyboard_keys&keys=ABC",
-    method: 'get',
-    success: function (data) {
-      console.log("---");
-      console.log(data);
-    }
-  });
+  // $.ajax({
+  //   url: "/surface_cmd?cmd=keyboard_keys&keys=ABC",
+  //   method: 'get',
+  //   success: function (data) {
+  //     console.log("---");
+  //     console.log(data);
+  //   }
+  // });
 
   CorrectKey = "";
   setTimeout(function () {
@@ -307,44 +303,48 @@ function CorrectAnswer() {
 
 $(document).ready(function () {
   $("#ballons").hide();
+  LessonParameters = window.sendSyncCmd('get-lesson-parameters', '');
+
+  WordHints =  LessonParameters["hints"] === "yes";
+  MaxFans = parseInt( LessonParameters["max_fans"], 10);
+  RandomType = LessonParameters["random"];
+  LessonLength = parseInt( LessonParameters["length"], 10);
+  LessonLanguage = LessonParameters["language"];
+
 
   if (!WordHints) {
     $("#word_letter").hide();
   }
 
-  if (getParameterByName("nozoom") === "yes") {
-    nozoom = true;
-  }
+  // if (getParameterByName("nozoom") === "yes") {
+  //   nozoom = true;
+  // }
+  //
+  // addEventListener("click", function () {
+  //   if (getParameterByName("nozoom") === "yes") {
+  //     nozoom = true;
+  //
+  //   }
+  //   else {
+  //     var
+  //       el = document.documentElement
+  //       , rfs =
+  //       el.requestFullScreen
+  //       || el.webkitRequestFullScreen
+  //       || el.mozRequestFullScreen
+  //     ;
+  //     rfs.call(el);
+  //   }
+  // });
 
-  addEventListener("click", function () {
-    if (getParameterByName("nozoom") === "yes") {
-      nozoom = true;
-
-    }
-    else {
-      var
-        el = document.documentElement
-        , rfs =
-        el.requestFullScreen
-        || el.webkitRequestFullScreen
-        || el.mozRequestFullScreen
-      ;
-      rfs.call(el);
-    }
-  });
-
-
-  if (getParameterByName("max_fans")) {
-    MaxFans = getParameterByName("max_fans");
-  }
 
 
   for (var i = 0; i < LessonLength; i++) {
     var TempRandom = Math.floor(Math.random() * MaxFans) + 1;
 
     if (i > 0) {
-      k = 0;
-      l = 0;
+      var k = 0;
+      var l = 0;
       while (k == 0 && l < LessonLength) {
         for (var j = 0; j < i; j++) {
           if (TempRandom === RandomList[j]) {
@@ -366,67 +366,104 @@ $(document).ready(function () {
 
   CreateLesson();
 
-  setInterval(function () {
+  var KeyboardPath = "../keyboard/mini_" + LessonLanguage + "_keyboard.html";
 
-    $.ajax({
-      url: "/surface_cmd?cmd=what_key",
-      method: 'get',
-      success: function (data) {
-        if (data.key !== "") {
-          if (data.key == CorrectKey) {
-            CorrectAnswer();
+  $.ajax({
+    url: KeyboardPath,
+    success: function (data, status, jqXHR) {
+
+      var dom = $(data);
+
+      dom.filter('script').each(function () {
+        if (this.src) {
+          var script = document.createElement('script'), i, attrName, attrValue, attrs = this.attributes;
+          for (i = 0; i < attrs.length; i++) {
+            attrName = attrs[i].name;
+            attrValue = attrs[i].value;
+            script[attrName] = attrValue;
           }
-          else if (CorrectKey === "") {
-            play_sound("../audio/correct-sound/switch_1.mp3","media_audio");
-          }
-          else {
-
-            key_string = key_string.replace(data.key.toUpperCase(),"");
-
-            $.ajax({
-              url: "/surface_cmd?cmd=keyboard_keys&keys=" + key_string,
-              method: 'get',
-              success: function (data) {
-                console.log("---");
-                console.log(data);
-              }
-            });
-
-
-            setTimeout(function () {
-//              play_sound("../audio/wrong-sound/wrong-answer-short-buzzer-double-01.mp3");
-              play_sound("../audio/wrong-sound/yanlis-"+ Math.floor( (Math.random() * 16) +1 ) +".mp3","media_audio2");
-            }, 700);
-          }
-        }
-      }
-    });
-
-
-    if (StartAnimation) {
-      for (var i = 0; i < fan_animations.length; i++) {
-        if (fan_animations[i].is_animate) {
-          fan_animations[i].fan_position++;
-          $("#fan_image_" + i).attr("src", "ceiling-fan-anim/" + fan_animations[i].fan_id + "/" + fan_animations[i].fan_position + ".png");
-          if (fan_animations[i].fan_position >= fan_animations[i].max_position) {
-            fan_animations[i].fan_position = 0;
-          }
-        }
-
-        if (fan_animations[i].is_visible) {
-          $("#fan_image_" + i).show();
+          document.body.appendChild(script);
         }
         else {
-          $("#fan_image_" + i).hide();
+          $.globalEval(this.text || this.textContent || this.innerHTML || '');
         }
-      }
+      });
 
-      $("#fan_1").attr("src", "ceiling-fan-anim/1/" + fan_1_anime + ".png");
-      fan_1_anime++;
-      if (fan_1_anime >= 4) {
-        fan_1_anime = 1;
-      }
+      $("#bottom-half").html(data);
+      init_keyboard();
+
     }
+  });
 
-  }, 100);
+  document.addEventListener("virtual-keyboard-press", function (event) {
+    if (event.detail.key !== "" && LessonProgress > 0) {
+      CorrectAnswer(event.detail.key);
+    }
+  });
+
+
+//   setInterval(function () {
+//
+//     $.ajax({
+//       url: "/surface_cmd?cmd=what_key",
+//       method: 'get',
+//       success: function (data) {
+//         if (data.key !== "") {
+//           if (data.key == CorrectKey) {
+//             CorrectAnswer();
+//           }
+//           else if (CorrectKey === "") {
+//             play_sound("../audio/correct-sound/switch_1.mp3","media_audio");
+//           }
+//           else {
+//
+//             key_string = key_string.replace(data.key.toUpperCase(),"");
+//
+//             $.ajax({
+//               url: "/surface_cmd?cmd=keyboard_keys&keys=" + key_string,
+//               method: 'get',
+//               success: function (data) {
+//                 console.log("---");
+//                 console.log(data);
+//               }
+//             });
+//
+//
+//             setTimeout(function () {
+// //              play_sound("../audio/wrong-sound/wrong-answer-short-buzzer-double-01.mp3");
+//               play_sound("../audio/wrong-sound/yanlis-"+ Math.floor( (Math.random() * 16) +1 ) +".mp3","media_audio2");
+//             }, 700);
+//           }
+//         }
+//       }
+//     });
+//
+//
+//     if (StartAnimation) {
+//       for (var i = 0; i < fan_animations.length; i++) {
+//         if (fan_animations[i].is_animate) {
+//           fan_animations[i].fan_position++;
+//           $("#fan_image_" + i).attr("src", "ceiling-fan-anim/" + fan_animations[i].fan_id + "/" + fan_animations[i].fan_position + ".png");
+//           if (fan_animations[i].fan_position >= fan_animations[i].max_position) {
+//             fan_animations[i].fan_position = 0;
+//           }
+//         }
+//
+//         if (fan_animations[i].is_visible) {
+//           $("#fan_image_" + i).show();
+//         }
+//         else {
+//           $("#fan_image_" + i).hide();
+//         }
+//       }
+//
+//       $("#fan_1").attr("src", "ceiling-fan-anim/1/" + fan_1_anime + ".png");
+//       fan_1_anime++;
+//       if (fan_1_anime >= 4) {
+//         fan_1_anime = 1;
+//       }
+//     }
+//
+//   }, 100);
+
 });

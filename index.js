@@ -192,6 +192,7 @@ $(document).ready(function () {
 		$.ajax({
 			url: "./categories.json",
 			method: 'get',
+			dataType: 'json',
 			error: function (data) {
 				console.log("ERROR");
 				console.log(data);
@@ -233,12 +234,14 @@ $(document).ready(function () {
 	$.ajax({
 		url: "./lesson.json",
 		method: 'get',
+		dataType: 'json',
 		error: function (data) {
 			console.log("ERROR");
 			console.log(data);
 		},
 		success: function (data) {
 			console.log(data);
+			console.log(data.length);
 			for (var i = 0; i < data.length; i++) {
 				console.log(data[i]);
 
@@ -259,6 +262,9 @@ $(document).ready(function () {
                   </select></div>
                     <div class="select">
                   <select  class="selectNative js-selectNative" aria-labelledby="jobLabel" id="options2_lesson_${data[i].id}">
+                  </select></div>
+                    <div class="select">
+                  <select  class="selectNative js-selectNative" aria-labelledby="jobLabel" id="options3_lesson_${data[i].id}">
                   </select></div>
                   <div id="checkbox_${data[i].id}"></div>
                   </div>
@@ -308,6 +314,18 @@ $(document).ready(function () {
 					$("#options2_lesson_" + data[i].id).hide();
 				}
 
+				if (typeof data[i].options3 !== "undefined") {
+					var Options3 = "";
+					if (typeof data[i].options3 !== "undefined") {
+						for (var j = 0; j < data[i].options3.length; j++) {
+							$("#options3_lesson_" + data[i].id).append("<option data-query='" + data[i].options3[j].query + "' data-value='" + data[i].options3[j].value + "' value='" + data[i].options3[j].query + "#" + data[i].options3[j].value + "'>" + data[i].options3[j].name + "</option>");
+						}
+					}
+				}
+				else {
+					$("#options3_lesson_" + data[i].id).hide();
+				}
+
 				if (typeof data[i].checkboxes !== "undefined") {
 					for (var j = 0; j < data[i].checkboxes.length; j++) {
 						$("#checkbox_" + data[i].id).append("<div class=\"form-check form-check-inline\">" +
@@ -318,59 +336,55 @@ $(document).ready(function () {
 				}
 
 				$(".screen_button").off('click').on("click", function () {
+					var LessonParameters = {};
 					var CheckBoxQuery = "";
 					var HasCheckBox = false;
 					if ($("#" + $(this).data("lesson_id")).data("checkboxes_query") !== "undefined") {
-						CheckBoxQuery = $("#" + $(this).data("lesson_id")).data("checkboxes_query") + "=";
+						var heckBoxQueryLeft = $("#" + $(this).data("lesson_id")).data("checkboxes_query");
 						$("input:checkbox.checkbox_" + $(this).data("lesson_id")).each(function () {
 							console.log(this.checked ? $(this).val() : "");
 							CheckBoxQuery += (this.checked ? $(this).val() : "");
 							HasCheckBox = true;
 						});
-					}
-
-					var QueryExtra = "";
-					if (HasCheckBox) {
-						QueryExtra = CheckBoxQuery;
+						LessonParameters[heckBoxQueryLeft] = CheckBoxQuery;
 					}
 
 					var DropDownQuery = $("#select_" + $(this).data("lesson_id")).find(":selected").data("query");
 					var DropDownValue = $("#select_" + $(this).data("lesson_id")).find(":selected").data("value");
 
 					if (typeof DropDownQuery !== "undefined") {
-						if (QueryExtra !== "") {
-							QueryExtra += "&";
-						}
-						QueryExtra += DropDownQuery + "=" + DropDownValue;
+						LessonParameters[DropDownQuery] = DropDownValue;
 					}
 
 					var DropDownQuery = $("#options_" + $(this).data("lesson_id")).find(":selected").data("query");
 					var DropDownValue = $("#options_" + $(this).data("lesson_id")).find(":selected").data("value");
 
 					if (typeof DropDownQuery !== "undefined") {
-						if (QueryExtra !== "") {
-							QueryExtra += "&";
-						}
-						QueryExtra += DropDownQuery + "=" + DropDownValue;
+						LessonParameters[DropDownQuery] = DropDownValue;
 					}
 
 					var DropDownQuery = $("#options2_" + $(this).data("lesson_id")).find(":selected").data("query");
 					var DropDownValue = $("#options2_" + $(this).data("lesson_id")).find(":selected").data("value");
 
 					if (typeof DropDownQuery !== "undefined") {
-						if (QueryExtra !== "") {
-							QueryExtra += "&";
-						}
-						QueryExtra += DropDownQuery + "=" + DropDownValue;
+						LessonParameters[DropDownQuery] = DropDownValue;
 					}
 
-					if (QueryExtra !== "") {
-						QueryExtra += "&";
+					var DropDownQuery = $("#options3_" + $(this).data("lesson_id")).find(":selected").data("query");
+					var DropDownValue = $("#options3_" + $(this).data("lesson_id")).find(":selected").data("value");
+
+					if (typeof DropDownQuery !== "undefined") {
+						LessonParameters[DropDownQuery] = DropDownValue;
 					}
-					QueryExtra += "category=" + LessonCategories;
+
+					LessonParameters["category"] = LessonCategories;
+
+					console.log( LessonParameters );
 
 					var ScreenPath = $("#" + $(this).data("lesson_id")).data("screen_path");
-					window.open(ScreenPath + QueryExtra, '_blank', 'nodeIntegration=yes');
+					ipcRenderer.send('set-lesson-parameters', LessonParameters);
+					ipcRenderer.send('load-lesson', ScreenPath);
+//					window.open(ScreenPath + QueryExtra, '_blank', 'nodeIntegration=yes');
 				});
 			}
 		}

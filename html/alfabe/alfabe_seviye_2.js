@@ -20,20 +20,15 @@ var AllWordsData;
 var AllCategoriesData;
 var AlfaWords = [];
 
-function getParameterByName(name, url) {
-	if (!url) url = window.location.href;
-	name = name.replace(/[\[\]]/g, '\\$&');
-	var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-		results = regex.exec(url);
-	if (!results) return null;
-	if (!results[2]) return '';
-	return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
-
-var LessonLength = parseInt(getParameterByName("word_count"), 10);
-var LessonLanguage = getParameterByName("language");
-LessonLanguage = "tr";
-var LessonCategory = getParameterByName("category");
+var LessonParameters;
+var LessonLength;
+var LessonLanguage;
+var LessonCategory;
+var LessonRandom;
+var WordHints = "yes";
+var AlphabeticOrder;
+var LessonLetters;
+var nozoom = false;
 
 function shuffle(a) {
 	var j, x, i;
@@ -47,23 +42,6 @@ function shuffle(a) {
 }
 
 
-function getParameterByName(name, url) {
-	if (!url) url = window.location.href;
-	name = name.replace(/[\[\]]/g, '\\$&');
-	var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-		results = regex.exec(url);
-	if (!results) return null;
-	if (!results[2]) return '';
-	return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
-
-
-var LessonLength = parseInt(getParameterByName("length"), 10);
-var WordHints = getParameterByName("hints") === "yes";
-var LessonRandom = getParameterByName("random");
-var LessonLetters = getParameterByName("letters");
-
-var AlphabeticOrder = getParameterByName("hints") === "alpha_order";
 
 function play_sound(mp3, playerid) {
 	var AudioSrc = mp3;
@@ -405,7 +383,8 @@ function InitLesson() {
 
 function LoadWords() {
 
-	AllWordsData = JSON.parse(ipcRenderer.sendSync('get-all-words', ''));
+	AllWordsData = JSON.parse(window.sendSyncCmd('get-all-words', ''));
+	console.log(AllWordsData.length);
 	for (var i = 0; i < AllWordsData.length; i++) {
 		if (LessonCategory.indexOf("-" + AllWordsData[i].categoryID + "-") !== -1) {
 			if (AllWordsData[i].word_TR !== "" && AllWordsData[i].word_TR !== null && LessonLanguage === "tr") {
@@ -436,6 +415,20 @@ function LoadWords() {
 $(document).ready(function () {
 	$("#ballons").hide();
 
+	LessonParameters = window.sendSyncCmd('get-lesson-parameters', '');
+
+	LessonLength =  parseInt(LessonParameters["length"], 10);
+	LessonLanguage = LessonParameters["language"];
+	LessonLanguage = "tr";
+	LessonCategory = LessonParameters["category"];
+
+	WordHints = LessonParameters["hints"] === "yes";
+	LessonRandom = LessonParameters["random"];
+	LessonLetters = LessonParameters["letters"];
+
+	AlphabeticOrder = LessonParameters["hints"] === "alpha_order";
+
+
 	$.ajax({
 		url: "../keyboard/mini_tr_keyboard.html",
 		success: function (data, status, jqXHR) {
@@ -461,9 +454,7 @@ $(document).ready(function () {
 		}
 	});
 
-	if (getParameterByName("nozoom") === "yes") {
-		nozoom = true;
-	}
+	nozoom = true;
 
 	if (!WordHints) {
 		$("#word_letter").hide();

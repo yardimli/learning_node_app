@@ -23,19 +23,11 @@ var media_audio2_playing = false;
 var AllWordsData;
 var AlfaWords = [];
 
-function getParameterByName(name, url) {
-	if (!url) url = window.location.href;
-	name = name.replace(/[\[\]]/g, '\\$&');
-	var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-		results = regex.exec(url);
-	if (!results) return null;
-	if (!results[2]) return '';
-	return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
 
-var LessonLength = parseInt(getParameterByName("word_count"), 10);
-var LessonLanguage = getParameterByName("language");
-var LessonCategory = getParameterByName("category");
+var LessonParameters;
+var LessonLength;
+var LessonLanguage;
+var LessonCategory;
 
 
 function getRandomColor() {
@@ -67,7 +59,7 @@ function flipCard(xCard) {
 	// second click
 	secondCard = xCard;
 
-	if (isMatch = $("#" + firstCard).data("framework") === $("#" + secondCard).data("framework")) {
+	if ($("#" + firstCard).data("framework") === $("#" + secondCard).data("framework")) {
 		disableUnlockBoard = true;
 		disableCards();
 	}
@@ -100,7 +92,7 @@ function disableCards() {
 		lockBoard = false;
 		disableUnlockBoard = false;
 
-		AllCardsOpen = true;
+		var AllCardsOpen = true;
 		$(".front-face").each(function () {
 			if (!$(this).hasClass("LowOpacity")) {
 				AllCardsOpen = false;
@@ -205,7 +197,6 @@ function CreateMemoryLessonBoard(RowCount) {
 
 	var CardID = 0;
 	var HtmlString = "";
-	var LessonLetters = "ELKAİNOMUTÜYÖRIDSBZÇGŞCPHVFJ";
 
 	var WordList = "";
 
@@ -216,11 +207,9 @@ function CreateMemoryLessonBoard(RowCount) {
 			for (var ii = 0; ii < AlfaWords.length; ii++) {
 				if ((Math.random() * 100 > 95) && (WordList.indexOf(AlfaWords[ii].word) === -1)) {
 					WordList += AlfaWords[ii].word + ",";
-					console.log(AlfaWords[ii].word);
-					RandomLetterPos = ii;
-					console.log(AlfaWords[ii].image);
+					console.log(AlfaWords[ii].word +" "+AlfaWords[ii].image);
 
-					WordAudio = "poster://audio/" + LessonLanguage + "/" + AlfaWords[ii].audio;
+					var WordAudio = "poster://audio/" + LessonLanguage + "/" + AlfaWords[ii].audio;
 
 					var Card1FrontSide = "<img class=\"front-face\" src=\"poster://pictures/" + AlfaWords[ii].image + "\" alt=\"" + AlfaWords[ii].word + "\" />";
 
@@ -343,7 +332,7 @@ function CreateWordBoard() {
 
 	var RandomWordChoices = 0;
 	for (var iii = 0; iii < 1000; iii++) {
-		ii = Math.round(Math.random() * AlfaWords.length);
+		var ii = Math.round(Math.random() * AlfaWords.length);
 		if (ii > 0) {
 			ii--;
 		}
@@ -404,24 +393,6 @@ function shuffle(a) {
 	return a;
 }
 
-
-function getParameterByName(name, url) {
-	if (!url) url = window.location.href;
-	name = name.replace(/[\[\]]/g, '\\$&');
-	var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-		results = regex.exec(url);
-	if (!results) return null;
-	if (!results[2]) return '';
-	return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
-
-
-//var LessonLength = parseInt(getParameterByName("length"), 10);
-var WordHints = getParameterByName("hints") === "yes";
-var LessonRandom = getParameterByName("random");
-var LessonLetters = getParameterByName("letters");
-
-var AlphabeticOrder = getParameterByName("hints") === "alpha_order";
 
 var _listener = function (playerid) {
 
@@ -649,7 +620,14 @@ function play_sound(mp3, playerid, pause_play) {
 
 $(document).ready(function () {
 
-	AllWordsData = JSON.parse(ipcRenderer.sendSync('get-all-words', ''));
+	LessonParameters = window.sendSyncCmd('get-lesson-parameters', '');
+
+	LessonLength =  parseInt(LessonParameters["length"], 10);
+	LessonLanguage = LessonParameters["language"];
+	LessonLanguage = "tr";
+	LessonCategory = LessonParameters["category"];
+
+	AllWordsData = JSON.parse(window.sendSyncCmd('get-all-words', ''));
 	for (var i = 0; i < AllWordsData.length; i++) {
 		if (LessonCategory.indexOf("-" + AllWordsData[i].categoryID + "-") !== -1) {
 			if (AllWordsData[i].word_TR !== "" && AllWordsData[i].word_TR !== null && LessonLanguage === "tr") {

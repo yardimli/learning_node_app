@@ -9,13 +9,16 @@ const https = require("https");
 const url = require("url");
 const async = require('async');
 const crypto = require('crypto');
-
 // const DownloadManager = require("electron-download-manager");
 
 // const {download} = require("electron-dl");
 
 var dataPath;
-
+var wordsJSON;
+var categoriesJSON;
+var MainWin;
+var newGuest;
+var LesonParameters;
 // function to read from a json file
 function readWords() {
 	const data = readFileSync(path.join(dataPath, 'words.json'), 'utf8')
@@ -64,8 +67,28 @@ var download = function (url, dest, cb) {
 	});
 };
 
+
+
+function createChildWindow(url) {
+
+console.log("NEW : "+url);
+	newGuest = new BrowserWindow({
+		parent: MainWin,
+		width: 1280,
+		height: 800,
+		webPreferences: {
+			preload: path.join(__dirname, "preload.js"),
+			nodeIntegration: false,
+			nativeWindowOpen: true
+		}
+	})
+	newGuest.webContents.openDevTools({mode: 'bottom'});
+	newGuest.loadFile(url);
+
+}
+
 function createWindow() {
-	const win = new BrowserWindow({
+	MainWin = new BrowserWindow({
 		width: 1280,
 		height: 800,
 		webPreferences: {
@@ -73,29 +96,9 @@ function createWindow() {
 			nativeWindowOpen: true
 		}
 	})
-	// win.webContents.openDevTools({mode: 'bottom'})
+	MainWin.webContents.openDevTools({mode: 'bottom'})
 
-	win.loadFile('index.html')
-
-	win.webContents.on('new-window', (event, url, frameName, disposition, options, additionalFeatures) => {
-		console.log(url + "   === " + frameName);
-		// if (frameName === 'modal') {
-		// open window as modal
-		event.preventDefault()
-		Object.assign(options, {
-			// modal: true,
-			parent: win,
-			width: 1280,
-			height: 800,
-			webPreferences: {
-				nodeIntegration: true,
-				nativeWindowOpen: true
-			}
-		})
-		event.newGuest = new BrowserWindow(options)
-		// event.newGuest.webContents.openDevTools({mode: 'bottom'})
-		// }
-	})
+	MainWin.loadFile('index.html')
 
 	protocol.registerFileProtocol('poster', (request, callback) => {
 		const url = request.url.substr(9);
@@ -400,6 +403,20 @@ function createWindow() {
 app.whenReady().then(createWindow)
 
 //const content = new Buffer("you've been conned!");
+
+ipcMain.on('get-lesson-parameters', (event, arg) => {
+	event.returnValue = LesonParameters;
+});
+
+ipcMain.on('set-lesson-parameters', (event, arg) => {
+	LesonParameters = arg;
+});
+
+
+ipcMain.on('load-lesson', (event, arg) => {
+	createChildWindow(arg);
+})
+
 
 ipcMain.on('get-all-words', (event, arg) => {
 	console.log(arg)

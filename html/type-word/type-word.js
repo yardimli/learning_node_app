@@ -6,13 +6,10 @@ var nozoom = false;
 var key_string = "";
 var LessonString = "";
 var LessonStringPos = 0;
-var LessonKeyboardRandom = getParameterByName("random");
 var AllLetters = "ELKAİNOMUTÜYÖRIDSBZÇGŞCPHVĞFJ1234567890";
 
 var LessonLength = 11;
 var LessonProgress = 0;
-var LessonLanguage = getParameterByName("language");
-var LessonCategory = getParameterByName("category");
 
 var AllWordsData;
 var AlfaWords = [];
@@ -21,15 +18,10 @@ var CorrectWordAudio = "";
 var Timeout1, Timeout2, Timeout3, Timeout4, Timeout5, Timeout6, Timeout7, Timeout8, Timeout9, Timeout10;
 var LastLetterEntered = false;
 
-function getParameterByName(name, url) {
-	if (!url) url = window.location.href;
-	name = name.replace(/[\[\]]/g, '\\$&');
-	var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-		results = regex.exec(url);
-	if (!results) return null;
-	if (!results[2]) return '';
-	return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
+var LessonParameters;
+var LessonKeyboardRandom;
+var LessonLanguage;
+var LessonCategory;
 
 
 function play_sound(mp3, playerid) {
@@ -190,9 +182,7 @@ function CorrectAnswer(InputKey) {
 
 			Timeout4 = setTimeout(function () {
 				if (LessonProgress >= LessonLength) {
-					Timeout5 = setTimeout(function () {
-						top.window.location.href = '../index.html';
-					}, 1500);
+					alert("Lesson Finished!");
 				}
 				else {
 					$("#WordsForLesson").html("");
@@ -241,7 +231,17 @@ function CorrectAnswer(InputKey) {
 }
 
 $(document).ready(function () {
-	AllWordsData = JSON.parse(ipcRenderer.sendSync('get-all-words', ''));
+	LessonParameters = window.sendSyncCmd('get-lesson-parameters', '');
+
+	LessonKeyboardRandom = LessonParameters["random"];
+	LessonLanguage = LessonParameters["language"];
+	LessonCategory = LessonParameters["category"];
+
+	AllWordsData = JSON.parse(window.sendSyncCmd('get-all-words', ''));
+
+
+	console.log( AllWordsData.length );
+
 
 	for (var i = 0; i < AllWordsData.length; i++) {
 		if (LessonCategory.indexOf("-" + AllWordsData[i].categoryID + "-") !== -1) {
@@ -338,9 +338,9 @@ $(document).ready(function () {
 	});
 
 
-	if (getParameterByName("nozoom") === "yes") {
-		nozoom = true;
-	}
+	// if (getParameterByName("nozoom") === "yes") {
+	// 	nozoom = true;
+	// }
 
 	// addEventListener("click", function () {
 	//   if (getParameterByName("nozoom") === "yes") {

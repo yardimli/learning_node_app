@@ -18,19 +18,10 @@ var media_audio2_playing = false;
 var AllWordsData;
 var AlfaWords = [];
 
-var LessonLength = parseInt(getParameterByName("word_count"), 10);
-var LessonLanguage = getParameterByName("language");
-
-function getParameterByName(name, url) {
-	if (!url) url = window.location.href;
-	name = name.replace(/[\[\]]/g, '\\$&');
-	var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-		results = regex.exec(url);
-	if (!results) return null;
-	if (!results[2]) return '';
-	return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
-
+var LessonCategories;
+var LessonLanguage;
+var LessonParameters;
+var LessonLength;
 
 function getRandomColor() {
 	var letters = '0123456789ABCDEF';
@@ -153,16 +144,6 @@ function shuffle(a) {
 	return a;
 }
 
-
-function getParameterByName(name, url) {
-	if (!url) url = window.location.href;
-	name = name.replace(/[\[\]]/g, '\\$&');
-	var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-		results = regex.exec(url);
-	if (!results) return null;
-	if (!results[2]) return '';
-	return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
 
 function shuffleArray(array) {
 	var currentIndex = array.length, temporaryValue, randomIndex;
@@ -397,8 +378,11 @@ function InitLesson() {
 }
 
 $(document).ready(function () {
+	LessonParameters = window.sendSyncCmd('get-lesson-parameters', '');
+	console.log(LessonParameters);
+	LessonLanguage = LessonParameters["language"];
 
-	AllWordsData = JSON.parse(ipcRenderer.sendSync('get-all-opposites', ''));
+	AllWordsData = JSON.parse(window.sendSyncCmd('get-all-opposites', ''));
 
 	for (var i = 0; i < AllWordsData.length; i++) {
 		if (AllWordsData[i].Turkish1 !== "" && AllWordsData[i].Turkish1 !== null && AllWordsData[i].Turkish2 !== "" && AllWordsData[i].Turkish2 !== null && LessonLanguage === "tr") {
